@@ -65,7 +65,7 @@ Route::middleware('auth', 'role:agent')->group(function () {
         Route::post('/agent/update/property', 'AgentUpdateProperty')->name('agent.update.property');
         Route::get('/agent/delete/property/{id}', 'AgentDeleteproperty')->name('agent.delete.property');
 
-        
+
         Route::get('/agent/package/invoice/{id}', 'AgentPackageInvoice')->name('agent.package.invoice');
 
         Route::get('/package/history', 'PackageHistory')->name('package.history');
@@ -83,12 +83,15 @@ Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('ad
 
 Route::middleware('auth', 'role:admin')->group(function () {
     Route::controller(AdminController::class)->group(function(){
-        Route::get('/admin/dashboard', [AdminController::class, 'adminDashobard'])->name('admin.dashboard');
+        Route::get('/admin/dashboard','adminDashobard')->name('admin.dashboard');
         Route::get('/admin/profile',  'AdminProfile')->name('admin.profile.view');
         Route::get('/admin/logout', 'adminLogout')->name('admin.logout');
         Route::post('/admin/profile/store', 'AdminProfileStore')->name('admin.profile.store');
         Route::get('/admin/password/change',  'adminPasswordChange')->name('admin.password.cahnge');
         Route::post('/admin/update/password', 'AdminUpdatePassword')->name('admin.update.password');
+
+        Route::get('/admin/package/history', 'AdminPackageHistory')->name('admin.package.history');
+        Route::get('/admin/package/invoice/{id}', 'AdminPackageInvoice')->name('admin.package.invoice');
         
         Route::get('/all/agent', 'AllAgent')->name('all.agent');
         Route::get('/add/agent', 'AddAgent')->name('add.agent');
@@ -129,6 +132,8 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::get('/detail/property/{id}', 'Detailproperty')->name('detail.property');
         Route::post('/inactive/property', 'InactiveProperty')->name('inactive.property');
         Route::post('/active/property', 'ActiveProperty')->name('active.property');
+
+        
     });
    
 }); //End Group Middleware Admin

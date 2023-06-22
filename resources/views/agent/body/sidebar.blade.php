@@ -26,16 +26,14 @@
             </a>
           </li>
           @if($status === 'active')
-          <li class="nav-item nav-category">web apps</li>
-          
-          
+          <li class="nav-item nav-category">My Property</li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#agentproperty" role="button" aria-expanded="false" aria-controls="agentproperty">
+            <a class="nav-link" data-bs-toggle="collapse" href="#myprofile-a" role="button" aria-expanded="false" aria-controls="myprofile-a">
               <i class="link-icon" data-feather="user"></i>
               <span class="link-title">Property</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
-            <div class="collapse" id="agentproperty">
+            <div class="collapse" id="myprofile-a">
               <ul class="nav sub-menu">
                 <li class="nav-item">
                   <a href="{{route('agent.all.property')}}" class="nav-link">All Property</a>
@@ -43,12 +41,34 @@
                 <li class="nav-item">
                   <a href="{{route('agent.add.property')}}" class="nav-link">Add Property</a>
                 </li>
-                
               </ul>
             </div>
           </li>
 
+          <li class="nav-item nav-category">My Package</li>
           <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#agentproperty" role="button" aria-expanded="false" aria-controls="agentproperty">
+              <i class="link-icon" data-feather="user"></i>
+              <span class="link-title">Package</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="agentproperty">
+              <ul class="nav sub-menu">
+                <li class="nav-item">
+                  <a href="{{route('package.history')}}" class="nav-link">History Package</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('buy.package')}}" class="nav-link">Buy Package</a>
+                </li>
+                
+              </ul>
+            </div>
+
+
+           
+          </li>
+
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{{route('buy.package')}}" role="button" aria-expanded="false" aria-controls="agentproperty">
               <i class="link-icon" data-feather="user"></i>
               <span class="link-title">Buy Package</span>
@@ -64,7 +84,7 @@
               <i class="link-icon" data-feather="user"></i>
               <span class="link-title">Package Histori</span>
             </a>
-          </li>
+          </li> -->
 
           @else
           @endif

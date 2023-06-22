@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 class AgentController extends Controller
 {
@@ -55,7 +56,9 @@ class AgentController extends Controller
         if ($request->file('photo')) {
             $file = $request->file('photo');
             @unlink(public_path('upload/agent_images/'.$data->photo));
-            $filename = date('YmdHi').$file->getClientOriginalName();
+            // $filename = date('YmdHi').$file->getClientOriginalName();
+            $filename = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            Image::make($file)->resize(370,370)->save('upload/agent_images'.$filename);
             $file->move(public_path('upload/agent_images'),$filename);
             $data['photo'] = $filename;
         }

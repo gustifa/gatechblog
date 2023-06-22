@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\PackagePlan;
 
 class AdminController extends Controller
 {
@@ -165,6 +167,21 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('all.agent')->with($notification);
+    }
+
+    public function AdminPackageHistory(){
+        $packageHistory = PackagePlan::latest()->get();
+        return view('backend.agentuser.package_history', compact('packageHistory'));
+
+    }
+
+    public function AdminPackageInvoice($id){
+        $packageHistory = PackagePlan::findOrFail($id);
+        $pdf = Pdf::loadView('backend.agentuser.package_history_invoice', compact('packageHistory'))->setPaper('a4')->setOption([
+            'tempDir' => public_path(),
+            'chroot' => public_path(),
+        ]);
+        return $pdf->download('Invoice Packet '.$packageHistory->package_name.'-' .$packageHistory->user->name. '.pdf');
     }
 
     

@@ -34,7 +34,7 @@ class AgentPropertyController extends Controller
         $property = User::where('role', 'agent')->where('id', $id)->first();
         $pcount = $property->credit;
 
-        if($pcount == 3 || $pcount == 9 ){
+        if($pcount == 1 || $pcount == 9 ){
             return redirect()->route('buy.package');
         }else {
             return view('agent.property.add_property', compact('propertyType', 'amenities'));

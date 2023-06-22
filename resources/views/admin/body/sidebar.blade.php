@@ -80,6 +80,21 @@
           </li>
           <!-- End Amenities -->
 
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#package_histori" role="button" aria-expanded="false" aria-controls="package_histori">
+              <i class="link-icon" data-feather="user"></i>
+              <span class="link-title">Package</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="package_histori">
+              <ul class="nav sub-menu">
+                <li class="nav-item">
+                  <a href="{{route('admin.package.history')}}" class="nav-link">Package History</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
           
           <li class="nav-item nav-category">User All Function</li>
           <li class="nav-item">
