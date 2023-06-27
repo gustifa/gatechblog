@@ -118,65 +118,219 @@
 </script>
 <script src="{{asset('backend/assets/js/code/sweetalert.js')}}"></script>
 <script src="{{asset('backend/assets/js/code/wishlist.js')}}"></script>
+<script src="{{asset('backend/assets/js/code/get_wishlist.js')}}"></script>
 <script src="{{asset('backend/assets/js/code/compare.js')}}"></script>
+<script src="{{asset('backend/assets/js/code/get_compare.js')}}"></script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
+
     function wishlist(){
         $.ajax({
             type: "GET",
             dataType: 'json',
-            url: "/get-wishlist-property",
+            url: "/get-wishlist-property/",
 
             success:function(response){
+
                 $('#wishQty').text(response.wishQty);
 
                 var rows = ""
-                $.each(response.wishlist, function(key, value){
+                $.each(response.wishlist, function(key,value){
 
-                    row += `<div class="deals-block-one">
-                                    <div class="inner-box">
-                                        <div class="image-box">
-                                            <figure class="image"><img src="/${value.property.property_thambnail}" alt=""></figure>
-                                            <div class="batch"><i class="icon-11"></i></div>
-                                            <span class="category">Featured</span>
-                                            <div class="buy-btn"><a href="property-details.html">For /${value.property.property_thambnail}</a></div>
-                                        </div>
-                                        <div class="lower-content">
-                                            <div class="title-text"><h4><a href="">/${value.property.property_name}</a></h4></div>
-                                            <div class="price-box clearfix">
-                                                <div class="price-info pull-left">
-                                                    <h6>Start From</h6>
-                                                    <h4>$30,000.00</h4>
-                                                </div>
-                                                <div class="author-box pull-right">
-                                                    <figure class="author-thumb"> 
-                                                        <img src="assets/images/feature/author-1.jpg" alt="">
-                                                        <span>Michael Bean</span>
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing sed eiusm do tempor incididunt labore.</p>
-                                            <ul class="more-details clearfix">
-                                                <li><i class="icon-14"></i>3 Beds</li>
-                                                <li><i class="icon-15"></i>2 Baths</li>
-                                                <li><i class="icon-16"></i>600 Sq Ft</li>
-                                            </ul>
-                                            <div class="other-info-box clearfix">
-                                                <div class="btn-box pull-left"><a href="property-details.html" class="theme-btn btn-two">See Details</a></div>
-                                                <ul class="other-option pull-right clearfix">
-                                                    <li><a href="property-details.html"><i class="icon-12"></i></a></li>
-                                                    <li><a href="property-details.html"><i class="icon-13"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`
+                  rows += `<div class="deals-block-one">
+        <div class="inner-box">
+            <div class="image-box">
+                <figure class="image"><img src="/${value.property.property_thambnail}" alt=""></figure>
+                <div class="batch"><i class="icon-11"></i></div>
+                <span class="category">Featured</span>
+                <div class="buy-btn"><a href="#">For ${value.property.property_status}</a></div>
+            </div>
+            <div class="lower-content">
+                <div class="title-text"><h4><a href="">${value.property.property_name}</a></h4></div>
+                <div class="price-box clearfix">
+                    <div class="price-info pull-left">
+                        <h6>Start From</h6>
+                        <h4>$${value.property.lowest_price}</h4>
+                    </div>
+                     
+                </div>
+               
+                <ul class="more-details clearfix">
+                    <li><i class="icon-14"></i>${value.property.bedrooms} Beds</li>
+                    <li><i class="icon-15"></i>${value.property.bathrooms} Baths</li>
+                    <li><i class="icon-16"></i>${value.property.property_size} Sq Ft</li>
+                </ul>
+                <div class="other-info-box clearfix">
+                    
+                    <ul class="other-option pull-right clearfix">
+                       
+       <li><a type="submit" class="text-body" id="${value.id}" onclick="wishlistRemove(this.id)" ><i class="fa fa-trash"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> `  
                 });
-                $('#wishlist').html(rows);
+
+      $('#wishlist').html(rows);       
             }
         })
     }
-</script>
+
+    wishlist();
+
+
+    // Wishlist Remove Start 
+
+    function wishlistRemove(id){
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/wishlist-remove/"+id,
+
+            success:function(data){
+                wishlist();
+
+                 // Start Message 
+
+            const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  
+                  showConfirmButton: false,
+                  timer: 3000 
+            })
+            if ($.isEmptyObject(data.error)) {
+                    
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success', 
+                    title: data.success, 
+                    })
+
+            }else{
+               
+           Toast.fire({
+                    type: 'error',
+                    icon: 'error', 
+                    title: data.error, 
+                    })
+                }
+
+              // End Message  
+
+
+            }
+        })
+
+    }
+
+    /// End Wishlist Remove  
+    
+</script> -->
+
+<!-- <script type="text/javascript">
+    function wishlist(){
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/get-wishlist-property/",
+
+            success:function(response){
+
+                $('#wishQty').text(response.wishQty);
+
+                var rows = ""
+                $.each(response.wishlist, function(key,value){
+
+                    rows += `<div class="deals-block-one">
+        <div class="inner-box">
+            <div class="image-box">
+                <figure class="image"><img src="/${value.property.property_thambnail}" alt=""></figure>
+                <div class="batch"><i class="icon-11"></i></div>
+                <span class="category">Featured</span>
+                <div class="buy-btn"><a href="#">For ${value.property.property_status}</a></div>
+            </div>
+            <div class="lower-content">
+                <div class="title-text"><h4><a href="">${value.property.property_name}</a></h4></div>
+                <div class="price-box clearfix">
+                    <div class="price-info pull-left">
+                        <h6>Start From</h6>
+                        <h4>$${value.property.lowest_price}</h4>
+                    </div>
+                     
+                </div>
+               
+                <ul class="more-details clearfix">
+                    <li><i class="icon-14"></i>${value.property.bedrooms} Beds</li>
+                    <li><i class="icon-15"></i>${value.property.    bathrooms} Baths</li>
+                    <li><i class="icon-16"></i>${value.property.    property_size} Sq Ft</li>
+                </ul>
+                <div class="other-info-box clearfix">
+                    
+                    <ul class="other-option pull-right clearfix">
+                       
+       <li><a type="submit" class="text-body" id="${value.id}" onclick="wishlistRemove(this.id)" ><i class="fa fa-trash"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> `
+                });
+                $('#wishlist').html(rows); 
+            }
+        })
+    }
+
+    wishlist();
+
+    // Wishlist Remove Start 
+
+    function wishlistRemove(id){
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url: "/wishlist-remove/"+id,
+
+            success:function(data){
+                wishlist();
+
+                 // Start Message 
+
+            const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  
+                  showConfirmButton: false,
+                  timer: 3000 
+            })
+            if ($.isEmptyObject(data.error)) {
+                    
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success', 
+                    title: data.success, 
+                    })
+
+            }else{
+               
+           Toast.fire({
+                    type: 'error',
+                    icon: 'error', 
+                    title: data.error, 
+                    })
+                }
+
+              // End Message  
+
+
+            }
+        })
+
+    }
+
+    /// End Wishlist Remove  
+</script> -->
 
 <!-- Add To Compare -->
 <!-- <script type="text/javascript">

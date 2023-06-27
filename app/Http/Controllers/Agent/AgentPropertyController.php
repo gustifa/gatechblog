@@ -23,7 +23,7 @@ class AgentPropertyController extends Controller
 {
     public function AgentAllproperty(){
         $id = Auth::user()->id;
-        $property = Property::where('agen_id', $id)->latest()->get();
+        $property = Property::where('agent_id', $id)->latest()->get();
         return view('agent.property.all_property', compact('property'));
     }
 
@@ -56,7 +56,7 @@ class AgentPropertyController extends Controller
             $property_id = Property::insertGetId([
                 'ptype_id' => $request->ptype_id,
                 'amenities_id' => $amenites,
-                'agen_id' => $id,
+                'agent_id' => $id,
                 'property_name' => $request->property_name,
                 'property_slug' => strtolower(str_replace(' ', '-',$request->property_name )),
                 'property_code' => $pcode,
@@ -91,7 +91,7 @@ class AgentPropertyController extends Controller
             $property_id = Property::insertGetId([
                 'ptype_id' => $request->ptype_id,
                 'amenities_id' => $amenites,
-                'agen_id' => $id,
+                'agent_id' => $id,
                 'property_name' => $request->property_name,
                 'property_slug' => strtolower(str_replace(' ', '-',$request->property_name )),
                 'property_code' => $pcode,
@@ -169,7 +169,7 @@ class AgentPropertyController extends Controller
         Property::findOrfail($property_id)->update([
             'ptype_id' => $request->ptype_id,
             'amenities_id' => $amenites,
-            'agen_id' => $request->agen_id,
+            'agent_id' => $request->agen_id,
             'property_name' => $request->property_name,
             'property_slug' => strtolower(str_replace(' ', '-',$request->property_name )),
             'property_status' => $request->property_status,

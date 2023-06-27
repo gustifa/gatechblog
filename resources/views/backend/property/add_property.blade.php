@@ -189,7 +189,7 @@
                                             <div class="col-sm-4">
 												<div class="form-group mb-3">
 													<label class="form-label">Agent</label>
-													<select name="agen_id" class="form-select" id="exampleFormControlSelect1">
+													<select name="agent_id" class="form-select" id="exampleFormControlSelect1">
                                                         <option selected="" disabled="">Select Agent</option>
                                                         @foreach($activeAgent as $agen)
                                                         <option value="{{$agen->id}}">{{$agen->name}}</option>

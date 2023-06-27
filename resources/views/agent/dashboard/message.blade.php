@@ -1,3 +1,5 @@
+
+
 <div class="col-lg-3 border-end-lg">
                     <div class="d-flex align-items-center justify-content-between">
                       <button class="navbar-toggle btn btn-icon border d-block d-lg-none" data-bs-target=".email-aside-nav" data-bs-toggle="collapse" type="button">
@@ -17,7 +19,7 @@
                           <a class="nav-link d-flex align-items-center" href="{{route('agent.property.message')}}">
                             <i data-feather="inbox" class="icon-lg me-2"></i>
                             Inbox
-                            <span class="badge bg-danger fw-bolder ms-auto">3
+                            <span class="badge bg-danger fw-bolder ms-auto">{{count($agentMessage)}}
                           </a>
                         </li>
                         <li class="nav-item">

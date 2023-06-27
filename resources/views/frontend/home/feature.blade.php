@@ -2,6 +2,7 @@
 $property = App\Models\Property::where('status','1')->where('featured','1')->limit(3)->get();
 @endphp
 
+@if($property !== NULL)
  <section class="feature-section sec-pad bg-color-1">
             <div class="auto-container">
                 <div class="sec-title centred">
@@ -68,3 +69,4 @@ $property = App\Models\Property::where('status','1')->where('featured','1')->lim
                 <div class="more-btn centred"><a href="property-list.html" class="theme-btn btn-one">View All Listing</a></div>
             </div>
         </section>
+    @endif

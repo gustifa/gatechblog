@@ -44,4 +44,17 @@ class CompareController extends Controller
     public function UserCompareDetails(){
         return view('frontend.property.comparelist_details');
     }
+
+    public function GetCompareProperty(){
+        $compare = Compare::with('property')->where('user_id', Auth::id())->latest()->get();
+
+        $compareQty = compare::count();
+
+        return response()->json(['compare' => $compare, 'compareQty' => $compareQty]); 
+    }
+
+    public function CompareRemove($id){
+        Compare::where('user_id', Auth::id())->where('id', $id)->delete();
+        return response()->json(['success' => 'Successfully Property Remove']);
+    }
 }

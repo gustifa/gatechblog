@@ -30,12 +30,33 @@ class AuthenticatedSessionController extends Controller
         $id = Auth::user()->id;
         $data = User::find($id);
         $username = $data->name;
-
-        $request->session()->regenerate();
-        $notification = array(
-            'message' => ''.$username.' Login Succesfully',
-            'alert-type' => 'info',
-        );
+        $role = $data->role;
+        
+        // $role = $data->role;
+        // if($role === 'admin'){
+        //     $request->session()->regenerate();
+        //     $notification = array(
+        //         'message' => 'Admin'.$username.' Login Succesfully',
+        //         'alert-type' => 'success',
+        //     );
+        //     return redirect()->route('admin.login')->with(' $notification');  
+        // }else if($role === 'agent'){
+        //     $request->session()->regenerate();
+        //     $notification = array(
+        //         'message' => 'Agent'.$username.' Login Succesfully',
+        //         'alert-type' => 'success',
+        //     );
+        //     return redirect()->route('agent.login')->with(' $notification');  
+        // }else if($role === 'user'){
+        //     $request->session()->regenerate();
+        //     $notification = array(
+        //         'message' => 'User'.$username.' Login Succesfully',
+        //         'alert-type' => 'success',
+        //     );
+        //     return redirect()->route('login')->with(' $notification');  
+        // }
+    
+       
         $url = '';
         if($request->user()->role === 'admin'){
             $url = 'admin/dashboard';
@@ -44,6 +65,10 @@ class AuthenticatedSessionController extends Controller
         } elseif($request->user()->role === 'user'){
             $url = '/dashboard';
         }
+        $notification = array(
+                    'message' => 'User '.$username.' Login Succesfully',
+                    'alert-type' => 'success',
+                );
 
         return redirect()->intended($url)->with($notification);
     }

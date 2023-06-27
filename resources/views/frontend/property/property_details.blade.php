@@ -391,7 +391,7 @@
                                             @csrf
                                         <input type="hidden" name="property_id" value="{{ $property->id }}">
                                         @if($property->agen_id == NULL)
-                                        <input type="hidden" name="agen_id" value="">
+                                        <input type="hidden" name="agen_id" value="1">
                                         @else
                                         <input type="hidden" name="agen_id" value="{{ $property->agen_id }}">
                                         @endif
@@ -416,7 +416,7 @@
                                             @csrf
                                         <input type="hidden" name="property_id" value="{{ $property->id }}">
                                         @if($property->agen_id == NULL)
-                                        <input type="hidden" name="agen_id" value="">
+                                        <input type="hidden" name="agen_id" value="1">
                                         @else
                                         <input type="hidden" name="agen_id" value="{{ $property->agen_id }}">
                                         @endif

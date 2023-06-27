@@ -43,7 +43,7 @@ class PropertyController extends Controller
             $property_id = Property::insertGetId([
                 'ptype_id' => $request->ptype_id,
                 'amenities_id' => $amenites,
-                'agen_id' => $request->agen_id,
+                'agent_id' => $request->agen_id,
                 'property_name' => $request->property_name,
                 'property_slug' => strtolower(str_replace(' ', '-',$request->property_name )),
                 'property_code' => $pcode,
@@ -79,7 +79,7 @@ class PropertyController extends Controller
             $property_id = Property::insertGetId([
                 'ptype_id' => $request->ptype_id,
                 'amenities_id' => $amenites,
-                'agen_id' => $request->agen_id,
+                'agent_id' => $request->agen_id,
                 'property_name' => $request->property_name,
                 'property_slug' => strtolower(str_replace(' ', '-',$request->property_name )),
                 'property_code' => $pcode,
@@ -254,7 +254,7 @@ class PropertyController extends Controller
         Property::findOrfail($property_id)->update([
             'ptype_id' => $request->ptype_id,
             'amenities_id' => $amenites,
-            'agen_id' => $request->agen_id,
+            'agent_id' => $request->agent_id,
             'property_name' => $request->property_name,
             'property_slug' => strtolower(str_replace(' ', '-',$request->property_name )),
             'property_status' => $request->property_status,

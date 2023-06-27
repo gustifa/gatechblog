@@ -15,7 +15,7 @@ class Property extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class, 'agen_id','id');
+        return $this->belongsTo(User::class, 'agent_id','id');
     }
     public function ame(){
         return $this->belongsTo(Amenities::class, 'amenities_id','id');

@@ -35,11 +35,12 @@ use App\Http\Controllers\Agent\AgentPropertyController;
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [UserController::class, 'Index' ])->name('frontend.index');
 
 Route::middleware('auth', 'role:user')->group(function () {
     Route::controller(UserController::class)->group(function(){
         //Route Frontend
-    Route::get('/', 'Index')->name('frontend.index');
+    
     Route::get('/user/profile', 'UserProfile')->name('user.profile.view');
     Route::post('/user/profile/store', 'UserProfileStore')->name('user.profile.store');
     Route::get('/user/password/edit', 'UserPasswordChange')->name('user.password.edit');
@@ -194,12 +195,15 @@ Route::controller(IndexController::class)->group(function(){
 
 Route::controller(WishlistController::class)->group(function(){
     Route::post('/add-to-wishList/{property_id}', 'AddToWishlist');
-    Route::post('/get-wishList-property', 'GetWishlistProperty');
+    Route::get('/get-wishlist-property', 'GetWishlistProperty');
+    Route::get('/wishlist-remove/{id}', 'WishlistRemove');
 
     
 });
 
 Route::controller(CompareController::class)->group(function(){
     Route::post('/add-to-compare/{property_id}', 'AddComparelist');
+    Route::get('/get-compare-property', 'GetCompareProperty');
+    Route::get('/compare-remove/{id}', 'CompareRemove');
     
 });

@@ -179,10 +179,10 @@
                                             <div class="col-sm-4">
 												<div class="mb-3">
 													<label class="form-label">Agent</label>
-													<select name="agen_id" class="form-select" id="exampleFormControlSelect1">
+													<select name="agent_id" class="form-select" id="exampleFormControlSelect1">
                                                         <option selected="" disabled="">Select Agent</option>
                                                         @foreach($activeAgent as $item)
-                                                        <option value="{{$item->id}}"{{$item->id == $property->agen_id ? 'selected' : ''}}>{{$item->name}}</option>
+                                                        <option value="{{$item->id}}"{{$item->id == $property->agent_id ? 'selected' : ''}}>{{$item->name}}</option>
 													@endforeach
                                                        
                                                     </select>
