@@ -18,12 +18,13 @@
                             <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Image</th>
+                                <th>Thumbnail</th>
                                 <th>Name</th>
+                                <th>Nama Agent</th>
                                 <th>P Type</th>
                                 <th>Status Type</th>
-                                <th>City</th>
-                                <th>Property Code</th>
+                                <!-- <th>Featured</th> -->
+                                <!-- <th>Property Code</th> -->
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -33,12 +34,23 @@
                             <tr>
                                 <td>{{$key+1}}</td>
                                 
-                                <td><img src="{{(!empty($item->property_thambnail)) ? url('upload/property/thambnail/'.$item->property_thambnail) : url('upload/no_image.jpg')}}" alt="" style="width:70px; height:40px;"></td>
+                                <td><img src="{{(!empty($item->property_thambnail)) ? asset($item->property_thambnail) : url('upload/no_image.jpg')}}" alt="" style="width:70px; height:40px;"></td>
                                 <td>{{$item->property_name}}</td>
-                                <td>{{$item['type']['type_name']}}</td>
+                                @if($item->agen_id == NULL)
+                                <td>Admin</td>
+                                @else
+                                <td>{{$item->user->name}}</td>
+                                @endif
+                                <td>{{$item->type->type_name}}</td>
                                 <td>{{$item->property_status}}</td>
-                                <td>{{$item->city}}</td>
-                                <td>{{$item->property_code}}</td>
+                                <!-- <td>
+                                    @if($item->featured == 1)
+                                    <span class="badge rounded-pill bg-success">featured</span>
+                                    @else
+                                    <span class="badge rounded-pill bg-danger">No</span>
+                                    @endif
+                                </td> -->
+                                <!-- <td>{{$item->property_code}}</td> -->
                                 <td>
                                     @if($item->status == 1)
                                     <span class="badge rounded-pill bg-success">Active</span>

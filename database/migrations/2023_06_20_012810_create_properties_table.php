@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('logitude')->nullable();
             $table->string('featured')->nullable();
             $table->string('hot')->nullable();
-            $table->integer('agen_id');
+            $table->string('agen_id')->nullable();
             $table->string('status')->default(0);
             $table->timestamps();
         });

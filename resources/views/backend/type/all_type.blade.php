@@ -30,8 +30,8 @@
                                 <td>{{$item->type_name}}</td>
                                 <td>{{$item->icon_name}}</td>
                                 <td>
-                                    <a href="{{route('edit.type', $item->id)}}" class="btn btn-inverse-primary mb-1 mb-md-0">Edit</a>
-                                    <a href="{{route('delete.type', $item->id)}}" class="btn btn-inverse-warning mb-1 mb-md-0" id="delete">Delete</a>
+                                    <a href="{{route('edit.type', $item->id)}}" class="btn btn-inverse-primary mb-1 mb-md-0" title="Edit"><i data-feather="edit"></i></a>
+                                    <a href="{{route('delete.type', $item->id)}}" class="btn btn-inverse-danger mb-1 mb-md-0" id="delete" title="Delete"><i data-feather="trash-2"></i></a>
                                 </td>
                             </tr>
                             @endforeach

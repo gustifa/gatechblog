@@ -313,10 +313,7 @@
                     required : true,
                 },  
 
-                agen_id: {
-                    required : true,
-                },  
-
+               
                 ptype_id: {
                     required : true,
                 },  
@@ -342,9 +339,7 @@
                 amenities_id: {
                     required : 'Please Enter menities_id',
                 }, 
-				agen_id: {
-                    required : 'Please Enter agen_id',
-                },
+				
 				ptype_id: {
                     required : 'Please Enter ptype_id',
                 }, 

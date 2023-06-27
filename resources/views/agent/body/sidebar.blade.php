@@ -25,6 +25,24 @@
               <span class="link-title">Dashboard</span>
             </a>
           </li>
+          <li class="nav-item nav-category">Email</li>
+          <!-- Property Mail -->
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#mail" role="button" aria-expanded="false" aria-controls="emails">
+              <i class="link-icon" data-feather="mail"></i>
+              <span class="link-title">Mail</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="mail">
+              <ul class="nav sub-menu">
+                <li class="nav-item">
+                  <a href="{{route('agent.property.message')}}" class="nav-link">Inbox</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+          <!-- End Property Mail -->
           @if($status === 'active')
           <li class="nav-item nav-category">My Property</li>
           <li class="nav-item">

@@ -11,6 +11,7 @@ use App\Models\Facility;
 use App\Models\Amenities;
 use App\Models\User;
 use App\Models\PackagePlan;
+use App\Models\PropertyMessage;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -147,8 +148,67 @@ class AgentPropertyController extends Controller
         return redirect()->route('agent.all.property')->with($notification);
     }
 
+    public function AgentEditProperty($id){
+        $property = Property::findOrFail($id);
+        $amen = $property->amenities_id;
+        $property_amenites = explode(',', $amen );
+        $propertyType = PropertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+        $activeAgent = User::where('status','active')->where('role', 'agent')->latest()->get();
+
+        return view('agent.property.edit_property', compact('propertyType', 'property_amenites','activeAgent','amenities','property'));
+
+    }
+
+    public function AgentUpdateProperty(Request $request){
+        $amen = $request->amenities_id;
+        $amenites = implode(",", $amen );
+        $property_id = $request->id;
+        $data = Property::find($property_id);
+        $dataProperty = $data->property_name;
+        Property::findOrfail($property_id)->update([
+            'ptype_id' => $request->ptype_id,
+            'amenities_id' => $amenites,
+            'agen_id' => $request->agen_id,
+            'property_name' => $request->property_name,
+            'property_slug' => strtolower(str_replace(' ', '-',$request->property_name )),
+            'property_status' => $request->property_status,
+
+            'lowest_price' => $request->lowest_price,
+            'max_price' => $request->max_price,
+            'bedrooms' => $request->bedrooms,
+            'bathrooms' => $request->bathrooms,
+            'garage' => $request->garage,
+            'short_descp' => $request->short_descp,
+            'long_descp' => $request->long_descp,
+            'garage_size' => $request->garage_size,
+
+            'property_size' => $request->property_size,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'portal_code' => $request->portal_code,
+            'property_video' => $request->property_video,
+
+            'neighborhood' => $request->neighborhood,
+            'latitude' => $request->latitude,
+            'logitude' => $request->logitude,
+            'featured' => $request->featured,
+            'hot' => $request->hot,
+            'updated_at' => Carbon::now(),
+        ]);
+        $notification = array(
+            'message' => ' '.$dataProperty.' Update Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('agent.all.property')->with($notification);
+    }
+
     public function AgentDeleteProperty($id){
         $data = Property::find($id);
+        $user_id = Auth::user()->id;
+        $uid = User::findOrFail($user_id);
+        $nid = $uid->credit;
         $property = $data->property_name;
         Property::findOrfail($id)->delete();
         @unlink(public_path('upload/property/thambnail/'.$data->property_thambnail));
@@ -156,6 +216,11 @@ class AgentPropertyController extends Controller
             'message' => 'Data '.$property.' Delete Successfully',
             'alert-type' => 'success'
         );
+
+        User::where('id', $user_id)->update([
+            'credit' => DB::raw('-1+ '.$nid),
+
+        ]);
         return redirect()->route('agent.all.property')->with($notification);
     }
 
@@ -207,5 +272,18 @@ class AgentPropertyController extends Controller
             'chroot' => public_path(),
         ]);
         return $pdf->download('Invoice Packet '.$packageHistory->package_name.'-' .$packageHistory->user->name. '.pdf');
+    }
+
+    public function AgentpropertyMessage(){
+        $agentId = Auth::user()->id;
+        $agentMessage = PropertyMessage::where('agent_id', $agentId)->get();
+        return view('agent.message.all_message', compact('agentMessage'));
+    }
+
+    public function AgentMessageDetails($id){
+        $agentId = Auth::user()->id;
+        $agentMessage = PropertyMessage::where('agent_id', $agentId)->get();
+        $messageDetail = PropertyMessage::findOrFail($id);
+        return view('agent.message.details_message', compact('messageDetail','agentMessage'));
     }
 }

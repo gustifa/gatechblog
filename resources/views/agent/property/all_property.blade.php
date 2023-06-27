@@ -19,7 +19,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Image</th>
-                                <th>Name</th>
+                                <th>Property Name</th>
                                 <th>P Type</th>
                                 <th>Status Type</th>
                                 <th>City</th>
@@ -33,7 +33,7 @@
                             <tr>
                                 <td>{{$key+1}}</td>
                                 
-                                <td><img src="{{(!empty($item->property_thambnail)) ? url('upload/property/thambnail/'.$item->property_thambnail) : url('upload/no_image.jpg')}}" alt="" style="width:70px; height:40px;"></td>
+                                <td><img src="{{(!empty($item->property_thambnail)) ? asset($item->property_thambnail) : url('upload/no_image.jpg')}}" alt="" style="width:70px; height:40px;"></td>
                                 <td>{{$item->property_name}}</td>
                                 <td>{{$item['type']['type_name']}}</td>
                                 <td>{{$item->property_status}}</td>

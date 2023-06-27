@@ -18,10 +18,29 @@
               <span class="link-title">Dashboard</span>
             </a>
           </li>
+          <li class="nav-item nav-category">Mail</li>
+          <!-- Property Type -->
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#mail" role="button" aria-expanded="false" aria-controls="mail">
+              <i class="link-icon" data-feather="mail"></i>
+              <span class="link-title">Mail</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="mail">
+              <ul class="nav sub-menu">
+                <li class="nav-item">
+                  <a href="{{route('admin.property.message')}}" class="nav-link">Inbox</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+          <!-- End Property Type -->
+
           <li class="nav-item nav-category">web apps</li>
           <!-- Property Type -->
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#propertytype" role="button" aria-expanded="false" aria-controls="emails">
+            <a class="nav-link" data-bs-toggle="collapse" href="#propertytype" role="button" aria-expanded="false" aria-controls="propertytype">
               <i class="link-icon" data-feather="mail"></i>
               <span class="link-title">Property Type</span>
               <i class="link-arrow" data-feather="chevron-down"></i>

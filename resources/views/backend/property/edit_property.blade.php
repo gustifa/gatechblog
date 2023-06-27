@@ -7,8 +7,8 @@
           <div class="col-md-12 stretch-card">
 						<div class="card">
 							<div class="card-body">
-								<h6 class="card-title">Form Grid</h6>
-									<form id="myForm" method="post" action="{{route('update.property')}}">
+								<h6 class="card-title">Edit Property</h6>
+									<form id="myForm" method="post" action="{{route('update.property')}}" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="id" value="{{$property->id}}">
 										<div class="row">
@@ -46,20 +46,7 @@
                                                    
 												</div>
 											</div><!-- Col -->
-                                            <div class="col-sm-6">
-												<div class="mb-3">
-													<label class="form-label">Main Thumbnail</label>
-													<input type="file" name="property_thambnail" onChange="mainThumbUrl(this)" class="form-control">
-                                                    <img src="" id="mainThumb" alt="">
-												</div>
-											</div><!-- Col -->
-											<div class="col-sm-6">
-												<div class="mb-3">
-													<label class="form-label">Multi Image</label>
-													<input type="file" name="multi_img[]" class="form-control" id="multiImg" multiple="">
-                                                    <div class="row" id="preview_img"></div>
-												</div>
-											</div><!-- Col -->
+                                           
 										</div><!-- Row -->
 										
                                         <div class="row">
@@ -195,7 +182,7 @@
 													<select name="agen_id" class="form-select" id="exampleFormControlSelect1">
                                                         <option selected="" disabled="">Select Agent</option>
                                                         @foreach($activeAgent as $item)
-                                                        <option value="{{$item->id}}"{{$item->id == $item->id ? 'selected' : ''}}>{{$item->name}}</option>
+                                                        <option value="{{$item->id}}"{{$item->id == $property->agen_id ? 'selected' : ''}}>{{$item->name}}</option>
 													@endforeach
                                                        
                                                     </select>
@@ -208,7 +195,7 @@
 												<div class="mb-3">
 													<label class="form-label">Short Descp</label>
 													<textarea name="short_descp" class="form-control" id="tinymceExample" maxlength="50" rows="3">
-                                                    {{$property->short_descp}}
+                                                    {!!$property->short_descp!!}
                                                     </textarea>
 												</div>
 											</div><!-- Col -->
@@ -219,7 +206,7 @@
 												<div class="mb-3">
 													<label class="form-label">Long Descp</label>
 													<textarea class="form-control" name="long_descp" id="tinymceExample" rows="10">
-                                                        {{$property->long_descp}}
+                                                        {!!$property->long_descp!!}
                                                     </textarea>
 												</div>
 											</div><!-- Col -->
@@ -244,43 +231,13 @@
 											</div><!-- Col -->
 										</div><!-- Row -->
 
-										<div class="row add_item">
-                        <div class="col-md-4">
-                              <div class="mb-3">
-                                    <label for="facility_name" class="form-label">Facilities </label>
-                                    <select name="facility_name[]" id="facility_name" class="form-control">
-                                          <option value="">Select Facility</option>
-                                          <option value="Hospital">Hospital</option>
-                                          <option value="SuperMarket">Super Market</option>
-                                          <option value="School">School</option>
-                                          <option value="Entertainment">Entertainment</option>
-                                          <option value="Pharmacy">Pharmacy</option>
-                                          <option value="Airport">Airport</option>
-                                          <option value="Railways">Railways</option>
-                                          <option value="Bus Stop">Bus Stop</option>
-                                          <option value="Beach">Beach</option>
-                                          <option value="Mall">Mall</option>
-                                          <option value="Bank">Bank</option>
-                                    </select>
-                              </div>
-                        </div>
-                        <div class="col-md-4">
-                              <div class="mb-3">
-                                    <label for="distance" class="form-label"> Distance </label>
-                                    <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
-                              </div>
-                        </div>
-                        <div class="form-group col-md-4" style="padding-top: 30px;">
-                              <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add More..</a>
-                        </div>
-                 </div> <!---end row-->
-
+				
 
 
 										<div class="row">
 											<div class="col-sm-12">
 												<div class="mb-3">
-										<button type="submit" class="btn btn-primary submit">Update</button>
+										<button type="submit" class="btn btn-primary submit">Update Property</button>
 									
 									
 										</div>
@@ -297,7 +254,129 @@
     </div>
 
 </div>
+<!-- Property Main Thumbnail Image Update -->
 
+<div class="page-content" style="margin-top: -40px;">
+    <div class="row profile-body">
+          <!-- middle wrapper start -->
+        <div class="col-md-12 stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title">Edit Main Tubmnail</h6>
+									<form id="myForm" method="post" action="{{route('update.property.thumbnail')}}" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{$property->id}}">
+                                        <input type="hidden" name="old_img" value="{{$property->property_thambnail}}">
+										<div class="row">
+                                            <div class="col-sm-6">
+												<div class="mb-3">
+													<label class="form-label">Main Thumbnail</label>
+													<input type="file" name="property_thambnail" onChange="mainThumbUrl(this)" class="form-control">
+                                                    <img src="" id="mainThumb" alt="">
+												</div>
+											</div><!-- Col -->
+                                            <div class="col-sm-6">
+												<div class=" form-group mb-3">
+                                                    <img src="{{(!empty($property->property_thambnail)) ? asset($property->property_thambnail) : url('upload/no_image.jpg')}}" style="width: 100px; height: 100px;">
+                                                    
+												</div>
+											</div><!-- Col -->
+											
+										</div><!-- Row -->
+										
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="mb-3">
+										            <button type="submit" class="btn btn-primary submit">Update Thumbnail</button>
+										        </div>
+											</div>
+										</div>
+									
+									</form>
+									
+							</div>
+						</div>
+		</div>
+          <!-- middle wrapper end -->
+         
+    </div>
+
+</div>
+
+<!-- End Property Main Thumbnail Image Update -->
+
+<!-- Property Main Multi Thumbnail Image Update -->
+
+<div class="page-content" style="margin-top: -40px;">
+<div class="row"  style="margin-bottom: -90px;">
+			<div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Edit Multi Image</h4>
+								
+								<div class="table-responsive">
+								<form id="myForm" method="post" action="{{route('update.multiimage')}}" enctype="multipart/form-data">
+									@csrf
+									<table class="table table-striped">
+										<thead>
+											<th>No</th>
+											<th>Image</th>
+											<th>Change Image</th>
+											<th>Delete</th>
+										</thead>
+										
+										<tbody>
+											@foreach($multiImage as $key => $item)
+											<tr>
+												<td>{{$key+1}}</td>
+												<td>
+													<img src="{{asset($item->photo_name)}}" alt="image" style="width:50px; height:50px;">
+												</td>
+												<td>
+													<input type="file" name="multi_img[{{$item->id}}]" class="form-control">
+												</td>
+												<td>
+													<input type="submit" class="btn btn-primary" value="Update Image">
+													<a href="{{route('delete.multiimage', $item->id)}}" class="btn btn-danger" id="delete">Delete</a>
+												</td>
+											</tr>
+											@endforeach
+											
+										</tbody>
+									</table>
+
+								</form>
+
+								<form id="myForm" method="post" action="{{route('store.property.multiimage')}}" enctype="multipart/form-data">
+									@csrf
+									<input type="hidden" name="imageid" value="{{$property->id}}">
+								<table class="table table-striped">
+										<tbody>
+											<tr>
+												<td>
+												<!-- <input type="file" name="multi_img" class="form-control"> -->
+												<input type="file" name="multi_img[]" class="form-control" id="multiImg" multiple="">
+												<br>
+                                                <div class="row" id="preview_img"></div>
+												</td>
+												<td>
+												<input type="submit" class="btn btn-primary" value="Add Image">
+												</td>
+											</tr>
+											
+										</tbody>
+</table>
+								</form>
+								
+								</div>
+							</div>
+						</div>
+            </div>
+			
+	</div>
+</div>
+
+<!-- End Property Multi Thumbnail Image Update -->
 
 
 <script type="text/javascript">

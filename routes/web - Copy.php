@@ -11,7 +11,6 @@ use App\Http\Controllers\Backend\PropertyController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
-use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
 use App\Http\Controllers\Agent\AgentPropertyController;
@@ -31,38 +30,18 @@ use App\Http\Controllers\Agent\AgentPropertyController;
 //     return view('welcome');
 // });
 
-
+//Route Frontend
+Route::get('/', [UserController::class, 'Index'])->name('frontend.index');
+//Route::get('/login', [UserController::class, 'FrontendLogin'])->name('frontend.login');
+Route::get('/user/profile', [UserController::class, 'UserProfile'])->name('user.profile.view');
+Route::post('/user/profile/store', [UserController::class,'UserProfileStore'])->name('user.profile.store');
+Route::get('/user/password/edit', [UserController::class, 'UserPasswordChange'])->name('user.password.edit');
+Route::post('/user/update/password', [UserController::class,'UserUpdatePassword'])->name('user.update.password');
+Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
+//End Route Frontend
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth', 'role:user')->group(function () {
-    Route::controller(UserController::class)->group(function(){
-        //Route Frontend
-    Route::get('/', 'Index')->name('frontend.index');
-    Route::get('/user/profile', 'UserProfile')->name('user.profile.view');
-    Route::post('/user/profile/store', 'UserProfileStore')->name('user.profile.store');
-    Route::get('/user/password/edit', 'UserPasswordChange')->name('user.password.edit');
-    Route::post('/user/update/password', [UserController::class,'UserUpdatePassword'])->name('user.update.password');
-    Route::get('/user/logout', 'UserLogout')->name('user.logout');
-
-    
-    //End Route Frontend
-    });
-
-    Route::controller(CompareController::class)->group(function(){
-        Route::get('/user/compare/details', 'UserCompareDetails')->name('user.compare.details');    
-
-    });
-
-    Route::controller(WishlistController::class)->group(function(){
-        Route::get('/user/wishlist/details', 'UserWishlistDetails')->name('user.wishlist.details'); 
-        Route::get('get-wishlist-property', 'GetWishlistProperty'); 
-    
-    });
-
-
-}); //Group Middleware User
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -89,9 +68,6 @@ Route::middleware('auth', 'role:agent')->group(function () {
         Route::get('/agent/edit/property/{id}', 'AgentEditproperty')->name('agent.edit.property');
         Route::post('/agent/update/property', 'AgentUpdateProperty')->name('agent.update.property');
         Route::get('/agent/delete/property/{id}', 'AgentDeleteproperty')->name('agent.delete.property');
-
-        Route::get('/agent/property/message', 'AgentpropertyMessage')->name('agent.property.message');
-        Route::get('/agent/message/details/{id}', 'AgentMessageDetails')->name('agent.message.details');
 
 
         Route::get('/agent/package/invoice/{id}', 'AgentPackageInvoice')->name('agent.package.invoice');
@@ -120,10 +96,6 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
         Route::get('/admin/package/history', 'AdminPackageHistory')->name('admin.package.history');
         Route::get('/admin/package/invoice/{id}', 'AdminPackageInvoice')->name('admin.package.invoice');
-
-
-
-
         
         Route::get('/all/agent', 'AllAgent')->name('all.agent');
         Route::get('/add/agent', 'AddAgent')->name('add.agent');
@@ -169,13 +141,6 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::post('/inactive/property', 'InactiveProperty')->name('inactive.property');
         Route::post('/active/property', 'ActiveProperty')->name('active.property');
 
-        Route::get('/detail/property/{id}', 'Detailproperty')->name('detail.property');
-
-        Route::get('/admin/property/message', 'AdminPropertyMessage')->name('admin.property.message');
-        Route::get('/admin/message/details/{id}', 'AdminMessageDetails')->name('admin.message.details');
-
-
-
         
     });
    
@@ -186,20 +151,7 @@ Route::controller(IndexController::class)->group(function(){
     
 });
 
-Route::controller(IndexController::class)->group(function(){
-    Route::get('/property/details/{id}/{slug}', 'PropertyDetails')->name('property.details');
-    Route::post('/property/message', 'PropertyMessage')->name('property.message');
-    
-});
-
 Route::controller(WishlistController::class)->group(function(){
-    Route::post('/add-to-wishList/{property_id}', 'AddToWishlist');
-    Route::post('/get-wishList-property', 'GetWishlistProperty');
-
-    
-});
-
-Route::controller(CompareController::class)->group(function(){
-    Route::post('/add-to-compare/{property_id}', 'AddComparelist');
+    Route::post('/add-to-wishlist/{property_id}', 'AddToWishlist');
     
 });

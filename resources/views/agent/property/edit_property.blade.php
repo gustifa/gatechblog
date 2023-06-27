@@ -7,14 +7,15 @@
           <div class="col-md-12 stretch-card">
 						<div class="card">
 							<div class="card-body">
-								<h6 class="card-title">Form Add Property</h6>
-									<form id="myForm" method="post" action="{{route('agent.store.property')}}" enctype="multipart/form-data">
+								<h6 class="card-title">Form Grid</h6>
+									<form id="myForm" method="post" action="{{route('agent.update.property')}}">
                                         @csrf
+                                        <input type="hidden" name="id" value="{{$property->id}}">
 										<div class="row">
 											<div class="col-sm-6">
 												<div class=" form-group mb-3">
 													<label class="form-label">Property Name</label>
-													<input type="text" name="property_name" class="form-control">
+													<input type="text" name="property_name" class="form-control" value="{{$property->property_name}}">
                                                     
 												</div>
 											</div><!-- Col -->
@@ -23,8 +24,9 @@
 													<label class="form-label">Property Status</label>
 													<select name="property_status" class="form-select" id="exampleFormControlSelect1">
                                                         <option selected="" disabled="">Select Status</option>
-                                                        <option value="rent">For Rent</option>
-														<option value="buy">For Buy</option>
+                                                        <option value="rent" {{$property->property_status == 'rent' ? 'selected' : ''}}>For Rent</option>
+                                                        <option value="buy" {{$property->property_status == 'buy' ? 'selected' : ''}}>For Buy</option>
+														
                                                     </select>
                                                    
 												</div>
@@ -33,14 +35,14 @@
                                             <div class="col-sm-6">
 												<div class="form-group mb-3">
 													<label class="form-label">Lowest Price</label>
-													<input type="number" name="lowest_price" class="form-control">
+													<input type="text" name="lowest_price" class="form-control" value="{{$property->lowest_price}}">
                                                    
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-6">
 												<div class="form-group mb-3">
 													<label class="form-label">Max Price</label>
-													<input type="number" name="max_price" class="form-control">
+													<input type="text" name="max_price" class="form-control" value="{{$property->max_price}}">
                                                    
 												</div>
 											</div><!-- Col -->
@@ -48,7 +50,8 @@
 												<div class="mb-3">
 													<label class="form-label">Main Thumbnail</label>
 													<input type="file" name="property_thambnail" onChange="mainThumbUrl(this)" class="form-control">
-                                                    <img src="" id="mainThumb" alt="">
+                                                    <!-- <img src="" id="mainThumb" alt=""> -->
+                                                    <img id="mainThumb" class="wd-80 ht-80 rounded-circle" src="{{(!empty($property->property_thambnail)) ? url('upload/property/thambnail/'.$property->property_thambnail) : url('upload/no_image.jpg')}}" alt="profile">
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-6">
@@ -64,28 +67,28 @@
 											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">BedRooms</label>
-													<input type="number" name="bedrooms" class="form-control" >
+													<input type="text" name="bedrooms" class="form-control" value="{{$property->bedrooms}}" >
                                                    
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">BathRooms</label>
-													<input type="number" name="bathrooms" class="form-control">
+													<input type="text" name="bathrooms" class="form-control" value="{{$property->bathrooms}}">
                                                    
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">Garage</label>
-													<input type="number" name="garage" class="form-control">
+													<input type="text" name="garage" class="form-control" value="{{$property->garage}}">
                                                   
 												</div>
 											</div><!-- Col -->
                                             <div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">Garage Size</label>
-													<input type="number" name="garage_size" class="form-control">
+													<input type="text" name="garage_size" class="form-control" value="{{$property->garage_size}}">
                                                     
 												</div>
 											</div><!-- Col -->
@@ -94,28 +97,28 @@
 											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">Address</label>
-													<input type="text" name="address" class="form-control">
+													<input type="text" name="address" class="form-control" value="{{$property->address}}">
                                                    
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">City</label>
-													<input type="text" name="city" class="form-control">
+													<input type="text" name="city" class="form-control" value="{{$property->city}}">
                                                     
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">State</label>
-													<input type="text" name="state" class="form-control">
+													<input type="text" name="state" class="form-control" value="{{$property->state}}">
                                                    
 												</div>
 											</div><!-- Col -->
                                             <div class="col-sm-3">
 												<div class="mb-3">
 													<label class="form-label">Portal Code</label>
-													<input type="number" name="portal_code" class="form-control">
+													<input type="text" name="portal_code" class="form-control" value="{{$property->portal_code}}">
                                                    
 												</div>
 											</div><!-- Col -->
@@ -125,20 +128,20 @@
 											<div class="col-sm-4">
 												<div class="mb-3">
 													<label class="form-label">Property Size</label>
-													<input type="number" name="property_size" class="form-control">
+													<input type="text" name="property_size" class="form-control" value="{{$property->property_size}}">
                                                    
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-4">
 												<div class="mb-3">
 													<label class="form-label">Property Video</label>
-													<input type="text" name="property_video" class="form-control">
+													<input type="text" name="property_video" class="form-control" value="{{$property->property_video}}">
 												</div>
 											</div><!-- Col -->
                                             <div class="col-sm-4">
 												<div class="mb-3">
 													<label class="form-label">Nieghborhoot</label>
-													<input type="text" name="neighborhood" class="form-control">
+													<input type="text" name="neighborhood" class="form-control" value="{{$property->neighborhood}}">
 												</div>
 											</div><!-- Col -->
                                         </div><!-- Row -->
@@ -147,14 +150,14 @@
 											<div class="col-sm-6">
 												<div class="mb-3">
 													<label class="form-label">latitude</label>
-													<input type="text" name="latitude" class="form-control">
+													<input type="text" name="latitude" class="form-control" value="{{$property->latitude}}">
                                                     <a href="" target="_blank">Go here to go latitude from Address  </a>
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-6">
 												<div class="mb-3">
 													<label class="form-label">logitude</label>
-													<input type="text" name="logitude" class="form-control">
+													<input type="text" name="logitude" class="form-control" value="{{$property->logitude}}">
                                                     <a href="" target="_blank">Go here to go logitude from Address  </a>
 												</div>
 											</div><!-- Col -->
@@ -165,24 +168,25 @@
 
                                         <div class="row">
 											<div class="col-sm-6">
-												<div class="form-group mb-3">
+												<div class="mb-3">
 													<label class="form-label">Property Type</label>
 													<select name="ptype_id" class="form-select" id="exampleFormControlSelect1">
                                                         <option selected="" disabled="">Select Type</option>
 														@foreach($propertyType as $type)
-                                                        <option value="{{$type->id}}">{{$type->type_name}}</option>
+                                                        <option value="{{$type->id}}" {{$type->id == $type->id ? 'selected' : ''}}>{{$type->type_name}}</option>
                                                        	@endforeach
                                                        
                                                     </select>
 												</div>
 											</div><!-- Col -->
 											<div class="col-sm-6">
-												<div class="form-group mb-3">
+												<div class="mb-3">
 													<label class="form-label">Property amenities</label>
 													<select name="amenities_id[]" class="js-example-basic-multiple form-select" multiple="multiple" data-width="100%">
-														@foreach($amenities as $item)
-                                                        <option value="{{$item->id}}">{{$item->amenities_name}}</option>
-                                                       	@endforeach
+                                                    @foreach($amenities as $item)
+                                                        <option value="{{$item->id}}"{{(in_array($item->id,$property_amenites)) ? 'selected' : ''}}>{{$item->amenities_name}}</option>
+													@endforeach
+														
                                                     </select>
 												</div>
 											</div><!-- Col -->
@@ -193,7 +197,9 @@
 											<div class="col-sm-12">
 												<div class="mb-3">
 													<label class="form-label">Short Descp</label>
-													<textarea name="short_descp" class="form-control" id="tinymceExample" maxlength="50" rows="3"></textarea>
+													<textarea name="short_descp" class="form-control" id="tinymceExample" maxlength="50" rows="3">
+                                                    {{$property->short_descp}}
+                                                    </textarea>
 												</div>
 											</div><!-- Col -->
 										</div><!-- Row -->
@@ -202,7 +208,9 @@
 											<div class="col-sm-12">
 												<div class="mb-3">
 													<label class="form-label">Long Descp</label>
-													<textarea class="form-control" name="long_descp" id="tinymceExample" rows="10"></textarea>
+													<textarea class="form-control" name="long_descp" id="tinymceExample" rows="10">
+                                                        {{$property->long_descp}}
+                                                    </textarea>
 												</div>
 											</div><!-- Col -->
 										</div><!-- Row -->
@@ -211,13 +219,13 @@
 											<div class="col-sm-12">
 												<div class="mb-3">
                                                     <div class="form-check form-check-inline">
-                                                        <input type="checkbox" name="featured" value="1" class="form-check-input" id="checkInline">
+                                                        <input type="checkbox" name="featured" value="1" class="form-check-input" id="checkInline" {{$property->featured == '1' ? 'checked' : ''}}>
                                                         <label class="form-check-label" for="checkInline">
-                                                            features Property
+                                                            featured Property
                                                         </label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input type="checkbox"  name="hot" value="1" class="form-check-input" id="checkInline">
+                                                        <input type="checkbox"  name="hot" value="1" class="form-check-input" id="checkInline"  {{$property->hot == '1' ? 'checked' : ''}}>
                                                             <label class="form-check-label" for="checkInline">
                                                             Hot Property
                                                             </label>
@@ -262,7 +270,7 @@
 										<div class="row">
 											<div class="col-sm-12">
 												<div class="mb-3">
-										<button type="submit" class="btn btn-primary submit">Save</button>
+										<button type="submit" class="btn btn-primary submit">Update Property</button>
 									
 									
 										</div>
@@ -299,19 +307,6 @@
                     required : true,
                 },  
 
-                amenities_id: {
-                    required : true,
-                },  
-
-
-                ptype_id: {
-                    required : true,
-                },  
-                
-                // property_thambnail: {
-                //     required : true,
-                // },  
-
             },
             messages :{
                 property_name: {
@@ -321,23 +316,11 @@
                     required : 'Please Enter property_status',
                 }, 
 				lowest_price: {
-                    required : 'Please Enter lowest_price',
+                    required : 'Please Enter property_status',
                 },
 				max_price: {
-                    required : 'Please Enter max_price',
+                    required : 'Please Enter property_status',
                 }, 
-                amenities_id: {
-                    required : 'Please Enter menities_id',
-                }, 
-				
-				ptype_id: {
-                    required : 'Please Enter ptype_id',
-                }, 
-                // property_thambnail: {
-                //     required : 'Please Upload property_thambnail',
-                // }, 
-
-
             },
             errorElement : 'span', 
             errorPlacement: function (error,element) {

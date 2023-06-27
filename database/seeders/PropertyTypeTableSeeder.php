@@ -23,14 +23,39 @@ class PropertyTypeTableSeeder extends Seeder
             ],
 
             [
-                'type_name' => 'Buku',
+                'type_name' => 'Alat Tulis',
                 'icon_name' => 'icon-2',
                 'created_at' => Carbon::now(),
             ],
 
             [
-                'type_name' => 'Accessoris',
+                'type_name' => 'Sarana',
                 'icon_name' => 'icon-3',
+                'created_at' => Carbon::now(),
+            ],
+
+            [
+                'type_name' => 'Prasarana',
+                'icon_name' => 'icon-4',
+                'created_at' => Carbon::now(),
+            ],
+
+            [
+                'type_name' => 'Buku',
+                'icon_name' => 'icon-5',
+                'created_at' => Carbon::now(),
+            ],
+
+            [
+                'type_name' => 'Accessoris',
+                'icon_name' => 'icon-6',
+                'created_at' => Carbon::now(),
+            ],
+
+            
+            [
+                'type_name' => 'Bahan',
+                'icon_name' => 'icon-7',
                 'created_at' => Carbon::now(),
             ],
 

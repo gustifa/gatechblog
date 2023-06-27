@@ -3,12 +3,13 @@
 
 @php
     $id = Auth::user()->id;
-    $agentId = App\Models\User::find($id);
-    $status = $agentId->status;
+    $user = App\Models\User::find($id);
+    $status = $user->status;
 @endphp
 <div class="page-content">
 @if($status === 'active')
 <h4>Agent Account is <span class="text-success">Active</span></h4>
+<p class="text-success">You Have {{ $user->credit}} Credit </p>
 @else
 <h4>Agent Account is <span class="text-danger">Inactive</span></h4>
 <p class="text-danger"> Please Wait Admin Will Chek and Approve Your Account</p>
