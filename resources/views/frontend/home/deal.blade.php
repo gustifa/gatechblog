@@ -22,7 +22,7 @@
                                                 <div class="lower-content">
                                                     <div class="author-info clearfix">
                                                         <div class="author pull-left">
-                                                        @if($item->agen_id == NULL)
+                                                        @if($item->agent_id == NULL)
                                                         <figure class="author-thumb"><img src="{{url('upload/admin.png')}} " alt=""></figure>
                                                         <h6>Admin</h6>
                                                     @else
