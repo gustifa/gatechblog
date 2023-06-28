@@ -1,5 +1,9 @@
 @extends('frontend.frontend_dashboard')
 @section('main')
+
+@section('title')
+GatechBlog - Teknologi Informasi dan Pembelajaran
+@endsection 
         <!-- banner-section -->
         @include('frontend.home.banner')
         <!-- banner-section end -->

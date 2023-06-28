@@ -1,3 +1,7 @@
+@php
+$siteSetting = App\Models\SiteSetting::find(1);
+@endphp
+
 <footer class="main-footer">
             <div class="footer-top bg-color-2">
                 <div class="auto-container">
@@ -56,9 +60,9 @@
                                 </div>
                                 <div class="widget-content">
                                     <ul class="info-list clearfix">
-                                        <li><i class="fas fa-map-marker-alt"></i>Flat 20, Reynolds Neck, North Helenaville, FV77 8WS</li>
-                                        <li><i class="fas fa-microphone"></i><a href="tel:23055873407">+2(305) 587-3407</a></li>
-                                        <li><i class="fas fa-envelope"></i><a href="mailto:info@example.com">info@example.com</a></li>
+                                        <li><i class="fas fa-map-marker-alt"></i>{{$siteSetting->company_address}}</li>
+                                        <li><i class="fas fa-microphone"></i><a href="tel:{{$siteSetting->support_phone}}">{{$siteSetting->support_phone}}</a></li>
+                                        <li><i class="fas fa-envelope"></i><a href="mailto:{{$siteSetting->email}}">{{$siteSetting->email}}</a></li>
                                     </ul>
                                 </div>
                             </div>

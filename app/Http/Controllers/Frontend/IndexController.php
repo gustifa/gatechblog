@@ -8,14 +8,18 @@ use App\Models\Property;
 use App\Models\MultiImage;
 use App\Models\Amenities;
 use App\Models\PropertyMessage;
+use App\Models\User;
+use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class IndexController extends Controller
 {
     public function PropertyDetails($id, $slug){
+        
         $property = Property::findOrFail($id);
         $amenities = Amenities::latest()->get();
+        
 
         $amen = $property->amenities_id;
         $property_amenites = explode(',', $amen);
@@ -52,5 +56,18 @@ class IndexController extends Controller
         }
         
         return redirect()->back()->with($notification);
+    }
+
+
+    // Agent
+    public function AgentDetails($id){
+
+        $agents = User::findOrFail($id);
+
+        $property = Property::where('agent_id', $id)->get();
+
+        $fetuaredProperty = Property::where('agent_id', $id)->where('status', '1')->where('featured', '1')->limit(3)->get();
+
+        return view('frontend.agent.agent_details', compact('agents', 'property', 'fetuaredProperty'));
     }
 }

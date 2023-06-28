@@ -1,6 +1,10 @@
 @extends('frontend.frontend_dashboard')
 @section('main')
 
+@section('title')
+CaompareList - Teknologi Informasi dan Pembelajaran
+@endsection 
+
 <!--Page Title-->
         <section class="page-title centred" style="background-image: url({{asset('frontend/assets/images/background/page-title-5.jpg')}});">
             <div class="auto-container">

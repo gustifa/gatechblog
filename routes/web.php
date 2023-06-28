@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
+use App\Http\Controllers\Backend\SettingController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
@@ -174,9 +175,12 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
         Route::get('/admin/property/message', 'AdminPropertyMessage')->name('admin.property.message');
         Route::get('/admin/message/details/{id}', 'AdminMessageDetails')->name('admin.message.details');
+        
+    });
 
-
-
+    Route::controller(SettingController::class)->group(function(){
+        Route::get('/site/setting', 'SiteSetting')->name('site.setting');
+        Route::post('/setting/update', 'SettingUpdate')->name('setting.update');
         
     });
    
@@ -184,8 +188,12 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
 Route::controller(IndexController::class)->group(function(){
     Route::get('/property/details/{id}/{slug}', 'PropertyDetails')->name('property.details');
+
+    Route::get('/agent/details/{id}', 'AgentDetails')->name('agent.details');
     
 });
+
+
 
 Route::controller(IndexController::class)->group(function(){
     Route::get('/property/details/{id}/{slug}', 'PropertyDetails')->name('property.details');
