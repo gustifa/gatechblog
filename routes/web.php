@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\RoleController;
 
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
@@ -122,10 +123,6 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
         Route::get('/admin/package/history', 'AdminPackageHistory')->name('admin.package.history');
         Route::get('/admin/package/invoice/{id}', 'AdminPackageInvoice')->name('admin.package.invoice');
-
-
-
-
         
         Route::get('/all/agent', 'AllAgent')->name('all.agent');
         Route::get('/add/agent', 'AddAgent')->name('add.agent');
@@ -133,7 +130,14 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::get('/edit/agent/{id}', 'EditAgent')->name('edit.agent');
         Route::post('/update/agent', 'UpdateAgent')->name('update.agent');
         Route::get('/detail/agent/{id}', 'DetailAgent')->name('detail.agent');
-        Route::get('/delete/agent/{id}', 'DeleteAgent')->name('delete.agent');  
+        Route::get('/delete/agent/{id}', 'DeleteAgent')->name('delete.agent');
+        
+        Route::get('/all/admin', 'AllAdmin')->name('all.admin');
+        Route::get('/add/admin', 'AddAdmin')->name('add.admin');
+        Route::post('/store/admin', 'StoreAdmin')->name('store.admin');
+        Route::get('/edit/admin/{id}', 'EditAdmin')->name('edit.admin');
+        Route::post('/update/admin/{id}', 'UpdateAdmin')->name('update.admin');
+        Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');
     });
 
     Route::controller(PropertyTypeController::class)->group(function(){
@@ -181,6 +185,31 @@ Route::middleware('auth', 'role:admin')->group(function () {
     Route::controller(SettingController::class)->group(function(){
         Route::get('/site/setting', 'SiteSetting')->name('site.setting');
         Route::post('/setting/update', 'SettingUpdate')->name('setting.update');
+        
+    });
+    
+    Route::controller(RoleController::class)->group(function(){
+        Route::get('/all/permission', 'AllPermission')->name('all.permission');
+        Route::get('/add/permission', 'AddPermission')->name('add.permission');
+        Route::post('/store/permission', 'StorePermission')->name('store.permission');
+        Route::get('/details/permission', 'DetailsPermission')->name('details.permission');
+        Route::get('/edit/permission/{id}', 'EditPermission')->name('edit.permission');
+        Route::post('/update/permission', 'UpdatePermission')->name('update.permission');
+        Route::get('/delete/permission/{id}', 'DeletePermission')->name('delete.permission');
+
+        Route::get('/all/roles', 'AllRoles')->name('all.roles');
+        Route::get('/add/roles', 'Addroles')->name('add.roles');
+        Route::post('/store/roles', 'Storeroles')->name('store.roles');
+        Route::get('/details/roles', 'Detailsroles')->name('details.roles');
+        Route::get('/edit/roles/{id}', 'Editroles')->name('edit.roles');
+        Route::post('/update/roles', 'Updateroles')->name('update.roles');
+        Route::get('/delete/roles/{id}', 'DeleteRoles')->name('delete.roles');
+
+        Route::get('/add/roles/permission', 'AddRolePermission')->name('add.roles.permission');
+        Route::post('/roles/permission/store', 'RolePermissionStore')->name('roles.permission.store');
+        Route::get('/all/roles/permission', 'AllRolePermission')->name('all.roles.permission');
+
+        
         
     });
    

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\PackagePlan;
@@ -183,6 +184,79 @@ class AdminController extends Controller
         ]);
         return $pdf->download('Invoice Packet '.$packageHistory->package_name.'-' .$packageHistory->user->name. '.pdf');
     }
+
+    public function AllAdmin(){
+        $admin = User::where('role', 'admin')->latest()->get();
+        return view('backend.pages.admin.all_admin', compact('admin'));
+    }
+
+    public function AddAdmin(){
+        $roles = Role::all();
+        return view('backend.pages.admin.add_admin', compact('roles'));
+    }
+
+    public function StoreAdmin(Request $request){       
+        // User::insert([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'phone' => $request->phone,
+        //     'address' => $request->address,
+        //     'password' => Hash::make($request->password),
+        //     'status' => 'active',
+        //     'role' => 'admin',
+        //     'created_at' => Carbon::now(),
+        // ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->password = Hash::make($request->password);
+        $user->status = 'active';
+        $user->role = 'admin';
+        $user->created_at = Carbon::now();
+        $user->save();
+
+        if ($request->roles){
+            $user->assignRole($request->roles);
+        }
+
+        $notification = array(
+            'message' => 'Admin Add Susccesfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.admin')->with($notification);
+    }
+
+    public function EditAdmin($id){
+        $roles = Role::all();
+        $admin = User::findorFail($id);
+        return view('backend.pages.admin.edit_admin', compact('admin', 'roles'));
+    }
+
+    public function UpdateAdmin(Request $request){
+        $id = $request->id;
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->created_at = Carbon::now();
+        $user->save();
+
+        $user->roles()->detach();
+
+        if ($request->roles){
+            $user->assignRole($request->roles);
+        }
+
+        $notification = array(
+            'message' => 'Update Change Susccesfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.admin')->with($notification);
+    }
+
 
     
 

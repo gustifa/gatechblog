@@ -186,16 +186,29 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#authPages" role="button" aria-expanded="false" aria-controls="authPages">
               <i class="link-icon" data-feather="unlock"></i>
-              <span class="link-title">Authentication</span>
+              <span class="link-title">Role & Permission</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="authPages">
               <ul class="nav sub-menu">
                 <li class="nav-item">
-                  <a href="pages/auth/login.html" class="nav-link">Login</a>
+                  <a href="{{route('all.permission')}}" class="nav-link">All Permission</a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/auth/register.html" class="nav-link">Register</a>
+                  <a href="{{route('add.permission')}}" class="nav-link">Add Permission</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('all.roles')}}" class="nav-link">All Roles</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('add.roles')}}" class="nav-link">Add Roles</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('add.roles.permission')}}" class="nav-link">Role In Permission</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="{{route('all.roles.permission')}}" class="nav-link">All Role In Permission</a>
                 </li>
               </ul>
             </div>
