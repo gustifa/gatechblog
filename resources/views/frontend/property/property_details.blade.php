@@ -32,7 +32,7 @@ Property Detail - Teknologi Informasi dan Pembelajaran
                         <h3>{{$property->property_name}}</h3>
                         <div class="author-info clearfix">
                             <div class="author-box pull-left">
-                            @if($property->agen_id == NULL)
+                            @if($property->agent_id == NULL)
                                 <figure class="author-thumb"><img src="{{url('upload/admin.png')}} " alt=""></figure>
                                     <h6>Admin</h6>
                                         @else
@@ -324,21 +324,30 @@ Property Detail - Teknologi Informasi dan Pembelajaran
                                     <h4>Schedule A Tour</h4>
                                 </div>
                                 <div class="form-inner">
-                                    <form action="property-details.html" method="post">
+                                    <form action="{{route('store.schedule')}}" method="post">
+                                    @csrf
                                         <div class="row clearfix">
+
+                                            <input type="hidden" name="property_id" value="{{$property->id}}">
+                                            @if($property->agent_id == NULL)
+                                            <input type="hidden" name="agent_id" value="">
+                                            @else
+                                            <input type="hidden" name="agent_id" value="{{$property->agent_id}}">
+                                            @endif
+
                                             <div class="col-lg-6 col-md-12 col-sm-12 column">
                                                 <div class="form-group">
                                                     <i class="far fa-calendar-alt"></i>
-                                                    <input type="text" name="date" placeholder="Tour Date" id="datepicker">
+                                                    <input type="text" name="tour_date" placeholder="Tour Date" id="datepicker">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-12 col-sm-12 column">
                                                 <div class="form-group">
                                                     <i class="far fa-clock"></i>
-                                                    <input type="text" name="time" placeholder="Any Time">
+                                                    <input type="text" name="tour_time" placeholder="Any Time">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12 column">
+                                            <!-- <div class="col-lg-4 col-md-12 col-sm-12 column">
                                                 <div class="form-group">
                                                     <input type="text" name="name" placeholder="Your Name" required="">
                                                 </div>
@@ -352,7 +361,7 @@ Property Detail - Teknologi Informasi dan Pembelajaran
                                                 <div class="form-group">
                                                     <input type="tel" name="phone" placeholder="Your Phone" required="">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-lg-12 col-md-12 col-sm-12 column">
                                                 <div class="form-group">
                                                     <textarea name="message" placeholder="Your message"></textarea>

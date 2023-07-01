@@ -9,6 +9,7 @@ use App\Models\MultiImage;
 use App\Models\Amenities;
 use App\Models\PropertyMessage;
 use App\Models\User;
+use App\Models\Schedule;
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -25,6 +26,39 @@ class IndexController extends Controller
         $property_amenites = explode(',', $amen);
         $multiImage = MultiImage::where('property_id',$id)->get();
         return view('frontend.property.property_details', compact('property', 'multiImage','property_amenites','amenities'));
+    }
+
+    public function StoreSchedule(Request $request){
+        $property_id = $request->property_id;
+        $agent_id = $request->agent_id;
+        $user_id = Auth::user()->id;
+
+        if (Auth::check()){
+            Schedule::insert([
+                'user_id' => $user_id,
+                'property_id' => $property_id,
+                'agent_id' => $agent_id,
+                'tour_date' => $request->tour_date,
+                'tour_time' => $request->tour_time,
+                'message' => $request->message,
+                'created_at' => Carbon::now(),
+            ]);
+
+            $notification = array(
+                'message' => 'Schedule Add Successfully',
+                'alert-type' => 'success',
+            ); 
+            return redirect()->back()->with($notification);
+
+        }else{
+            $notification = array(
+                'message' => 'Please Login Your Account',
+                'alert-type' => 'error',
+            ); 
+             
+        }
+        return redirect()->back()->with($notification);
+        
     }
 
     public function PropertyMessage(Request $request){

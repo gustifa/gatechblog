@@ -19,9 +19,8 @@
             </a>
           </li>
           <li class="nav-item nav-category">Mail</li>
-          <!-- Property Type -->
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#mail" role="button" aria-expanded="false" aria-controls="mail">
+            <a class="nav-link" data-bs-toggle="collapse" href="#mail" role="button" aria-expanded="false" aria-controls="emails">
               <i class="link-icon" data-feather="mail"></i>
               <span class="link-title">Mail</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
@@ -29,36 +28,40 @@
             <div class="collapse" id="mail">
               <ul class="nav sub-menu">
                 <li class="nav-item">
-                  <a href="{{route('admin.property.message')}}" class="nav-link">Inbox</a>
+                  <a href="{{url('/admin/property/message')}}" class="nav-link">Inbox</a>
                 </li>
                 
               </ul>
             </div>
           </li>
-          <!-- End Property Type -->
-
           <li class="nav-item nav-category">web apps</li>
-          <!-- Property Type -->
+          @if(Auth::user()->can('type.menu'))
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#propertytype" role="button" aria-expanded="false" aria-controls="propertytype">
+            <a class="nav-link" data-bs-toggle="collapse" href="#propertytype" role="button" aria-expanded="false" aria-controls="emails">
               <i class="link-icon" data-feather="mail"></i>
               <span class="link-title">Property Type</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="propertytype">
               <ul class="nav sub-menu">
+              @if(Auth::user()->can('all.type'))
                 <li class="nav-item">
                   <a href="{{route('all.type')}}" class="nav-link">All Type</a>
                 </li>
+              @endif
+              @if(Auth::user()->can('add.type'))
                 <li class="nav-item">
                   <a href="{{route('add.type')}}" class="nav-link">Add Type</a>
                 </li>
+                @endif
               </ul>
             </div>
           </li>
+          @endif
           <!-- End Property Type -->
           
           <!-- Amenities -->
+          @if(Auth::user()->can('ame.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#amenities" role="button" aria-expanded="false" aria-controls="emails">
               <i class="link-icon" data-feather="user"></i>
@@ -68,17 +71,20 @@
             <div class="collapse" id="amenities">
               <ul class="nav sub-menu">
                 <li class="nav-item">
+                @if(Auth::user()->can('all.ame'))
                   <a href="{{route('all.amenities')}}" class="nav-link">All Amenities</a>
+                @endif
                 </li>
                 <li class="nav-item">
+                @if(Auth::user()->can('add.ame'))
                   <a href="{{route('add.amenities')}}" class="nav-link">Add Amenities</a>
+                  @endif
                 </li>
                 
               </ul>
             </div>
           </li>
-          <!-- End Amenities -->
-          <!-- Amenities -->
+          @endif
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false" aria-controls="emails">
               <i class="link-icon" data-feather="user"></i>
@@ -97,27 +103,28 @@
               </ul>
             </div>
           </li>
-          <!-- End Amenities -->
-
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#package_histori" role="button" aria-expanded="false" aria-controls="package_histori">
+            <a class="nav-link" data-bs-toggle="collapse" href="#packageHistori" role="button" aria-expanded="false" aria-controls="emails">
               <i class="link-icon" data-feather="user"></i>
               <span class="link-title">Package</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
-            <div class="collapse" id="package_histori">
+            <div class="collapse" id="packageHistori">
               <ul class="nav sub-menu">
                 <li class="nav-item">
                   <a href="{{route('admin.package.history')}}" class="nav-link">Package History</a>
                 </li>
+               
+                
               </ul>
             </div>
           </li>
 
+
           
           <li class="nav-item nav-category">User All Function</li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="emails">
               <i class="link-icon" data-feather="feather"></i>
               <span class="link-title">Manage Agent</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
@@ -133,53 +140,20 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#icons" role="button" aria-expanded="false" aria-controls="icons">
-              <i class="link-icon" data-feather="smile"></i>
-              <span class="link-title">Icons</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse" id="icons">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="pages/icons/feather-icons.html" class="nav-link">Feather Icons</a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/icons/flag-icons.html" class="nav-link">Flag Icons</a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/icons/mdi-icons.html" class="nav-link">Mdi Icons</a>
-                </li>
-              </ul>
-            </div>
-          </li>
+          
           <li class="nav-item nav-category">Setting</li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" role="button" aria-expanded="false" aria-controls="general-pages">
+            <a class="nav-link" data-bs-toggle="collapse" href="#permission" role="button" aria-expanded="false" aria-controls="general-pages">
               <i class="link-icon" data-feather="book"></i>
               <span class="link-title">Site Setting</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
-            <div class="collapse" id="general-pages">
+            <div class="collapse" id="permission">
               <ul class="nav sub-menu">
                 <li class="nav-item">
                   <a href="{{route('site.setting')}}" class="nav-link">Site</a>
                 </li>
-                <li class="nav-item">
-                  <a href="pages/general/faq.html" class="nav-link">Faq</a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/general/invoice.html" class="nav-link">Invoice</a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/general/profile.html" class="nav-link">Profile</a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/general/pricing.html" class="nav-link">Pricing</a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/general/timeline.html" class="nav-link">Timeline</a>
-                </li>
+                
               </ul>
             </div>
           </li>
@@ -204,12 +178,32 @@
                   <a href="{{route('add.roles')}}" class="nav-link">Add Roles</a>
                 </li>
                 <li class="nav-item">
+                  <a href="{{route('all.roles.permission')}}" class="nav-link">All Role In Permission</a>
+                </li>
+                <li class="nav-item">
                   <a href="{{route('add.roles.permission')}}" class="nav-link">Role In Permission</a>
                 </li>
 
+                
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#icons" role="menu" aria-expanded="false" aria-controls="icons">
+              <i class="link-icon" data-feather="smile"></i>
+              <span class="link-title">Manage Admin</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="menu">
+              <ul class="nav sub-menu">
                 <li class="nav-item">
-                  <a href="{{route('all.roles.permission')}}" class="nav-link">All Role In Permission</a>
+                  <a href="{{route('all.admin')}}" class="nav-link">All Admin</a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{route('add.admin')}}" class="nav-link">Add Admin</a>
+                </li>
+
               </ul>
             </div>
           </li>

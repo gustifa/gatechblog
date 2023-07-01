@@ -8,6 +8,10 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Exports\PermissionExport;
+use App\Imports\PermissionImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class RoleController extends Controller
@@ -139,6 +143,25 @@ class RoleController extends Controller
     public function AllRolePermission(){
         $roles = Role::all();
         return view('backend.rolesetup.all_roles_permission', compact('roles'));
+    }
+
+    public function ImportPermission(){
+        return view('backend.pages.permission.import_permission');
+    }
+
+    public function Export(){
+        $user = Auth::user()->name;
+        return Excel::download(new PermissionExport, 'Template '.$user.'-user.xlsx');
+    }
+
+    public function Import(Request $request){
+        
+        Excel::import(new PermissionImport, $request->file('import_file'));
+        $notification = array(
+            'message' => 'Roles Permission Add Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.permission')->with($notification);
     }
 
     

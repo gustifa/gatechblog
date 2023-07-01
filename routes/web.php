@@ -209,6 +209,10 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::post('/roles/permission/store', 'RolePermissionStore')->name('roles.permission.store');
         Route::get('/all/roles/permission', 'AllRolePermission')->name('all.roles.permission');
 
+        Route::get('/import/permission', 'ImportPermission')->name('import.permission');
+        Route::get('/export', 'Export')->name('export');
+        Route::post('/import', 'Import')->name('import');
+
         
         
     });
@@ -227,6 +231,8 @@ Route::controller(IndexController::class)->group(function(){
 Route::controller(IndexController::class)->group(function(){
     Route::get('/property/details/{id}/{slug}', 'PropertyDetails')->name('property.details');
     Route::post('/property/message', 'PropertyMessage')->name('property.message');
+
+    Route::post('/store/schedule', 'StoreSchedule')->name('store.schedule');
     
 });
 

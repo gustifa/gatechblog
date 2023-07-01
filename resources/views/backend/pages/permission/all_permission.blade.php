@@ -5,9 +5,9 @@
 					<ol class="breadcrumb">
                     <a href="{{route('add.permission')}}" class="btn btn-inverse-primary mb-1 mb-md-0">Add Permission</a>
                     &nbsp; &nbsp;
-                    <a href="{{route('add.permission')}}" class="btn btn-inverse-info mb-1 mb-md-0">Import</a>
+                    <a href="{{route('import.permission')}}" class="btn btn-inverse-info mb-1 mb-md-0">Import</a>
                     &nbsp; &nbsp;
-                    <a href="{{route('add.permission')}}" class="btn btn-inverse-danger mb-1 mb-md-0">Export</a>
+                    <a href="{{route('export')}}" class="btn btn-inverse-danger mb-1 mb-md-0">Export</a>
 					</ol>
 			</nav>
                 

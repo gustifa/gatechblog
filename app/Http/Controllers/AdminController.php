@@ -257,6 +257,16 @@ class AdminController extends Controller
         return redirect()->route('all.admin')->with($notification);
     }
 
+    public function DeleteAdmin($id){
+
+        User::findorFail($id)->delete();
+        $notification = array(
+            'message' => 'Delete Admin Susccesfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.admin')->with($notification);
+    }
+
 
     
 
