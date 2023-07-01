@@ -196,6 +196,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::get('/edit/permission/{id}', 'EditPermission')->name('edit.permission');
         Route::post('/update/permission', 'UpdatePermission')->name('update.permission');
         Route::get('/delete/permission/{id}', 'DeletePermission')->name('delete.permission');
+        Route::get('/all/delete/permission/', 'AllDelete')->name('delete.permission.all');
 
         Route::get('/all/roles', 'AllRoles')->name('all.roles');
         Route::get('/add/roles', 'Addroles')->name('add.roles');
@@ -212,6 +213,9 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::get('/import/permission', 'ImportPermission')->name('import.permission');
         Route::get('/export', 'Export')->name('export');
         Route::post('/import', 'Import')->name('import');
+        Route::get('/import/admin', 'ImportAdmin')->name('import.admin');
+        Route::get('/export/admin', 'ExportAdmin')->name('export.admin');
+        Route::post('/store/import/admin', 'StoreImportAdmin')->name('store.import.admin');
 
         
         

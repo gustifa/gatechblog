@@ -11,28 +11,18 @@
       </div>
       <div class="sidebar-body">
         <ul class="nav">
-          <li class="nav-item nav-category">Main</li>
           <li class="nav-item">
             <a href="{{route('admin.dashboard')}}" class="nav-link">
-              <i class="link-icon" data-feather="box"></i>
+              <i class="link-icon" data-feather="home"></i>
               <span class="link-title">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item nav-category">Mail</li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#mail" role="button" aria-expanded="false" aria-controls="emails">
+            <a class="nav-link" href="{{route('admin.property.message')}}">
               <i class="link-icon" data-feather="mail"></i>
               <span class="link-title">Mail</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
-            <div class="collapse" id="mail">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{url('/admin/property/message')}}" class="nav-link">Inbox</a>
-                </li>
-                
-              </ul>
-            </div>
+
           </li>
           <li class="nav-item nav-category">web apps</li>
           @if(Auth::user()->can('type.menu'))
@@ -85,7 +75,9 @@
             </div>
           </li>
           @endif
+          @if(Auth::user()->can('property.menu'))
           <li class="nav-item">
+
             <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false" aria-controls="emails">
               <i class="link-icon" data-feather="user"></i>
               <span class="link-title">Property</span>
@@ -94,30 +86,25 @@
             <div class="collapse" id="property">
               <ul class="nav sub-menu">
                 <li class="nav-item">
+                @if(Auth::user()->can('all.propery'))
                   <a href="{{route('all.property')}}" class="nav-link">All Property</a>
+                  @endif
                 </li>
                 <li class="nav-item">
+                @if(Auth::user()->can('add.property'))
                   <a href="{{route('add.property')}}" class="nav-link">Add Property</a>
+                @endif
                 </li>
                 
               </ul>
             </div>
           </li>
+          @endif
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#packageHistori" role="button" aria-expanded="false" aria-controls="emails">
+            <a class="nav-link" href="{{route('admin.package.history')}}" role="button" aria-expanded="false" aria-controls="emails">
               <i class="link-icon" data-feather="user"></i>
-              <span class="link-title">Package</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
+              <span class="link-title">Package History</span>
             </a>
-            <div class="collapse" id="packageHistori">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{route('admin.package.history')}}" class="nav-link">Package History</a>
-                </li>
-               
-                
-              </ul>
-            </div>
           </li>
 
 
@@ -143,19 +130,10 @@
           
           <li class="nav-item nav-category">Setting</li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#permission" role="button" aria-expanded="false" aria-controls="general-pages">
+            <a class="nav-link" href="{{route('site.setting')}}">
               <i class="link-icon" data-feather="book"></i>
               <span class="link-title">Site Setting</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
-            <div class="collapse" id="permission">
-              <ul class="nav sub-menu">
-                <li class="nav-item">
-                  <a href="{{route('site.setting')}}" class="nav-link">Site</a>
-                </li>
-                
-              </ul>
-            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#authPages" role="button" aria-expanded="false" aria-controls="authPages">
@@ -189,13 +167,14 @@
             </div>
           </li>
 
+          
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#icons" role="menu" aria-expanded="false" aria-controls="icons">
-              <i class="link-icon" data-feather="smile"></i>
+            <a class="nav-link" data-bs-toggle="collapse" href="#errorPages" role="button" aria-expanded="false" aria-controls="errorPages">
+              <i class="link-icon" data-feather="cloud-off"></i>
               <span class="link-title">Manage Admin</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
-            <div class="collapse" id="menu">
+            <div class="collapse" id="errorPages">
               <ul class="nav sub-menu">
                 <li class="nav-item">
                   <a href="{{route('all.admin')}}" class="nav-link">All Admin</a>
@@ -203,7 +182,6 @@
                 <li class="nav-item">
                   <a href="{{route('add.admin')}}" class="nav-link">Add Admin</a>
                 </li>
-
               </ul>
             </div>
           </li>

@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use App\Exports\PermissionExport;
 use App\Imports\PermissionImport;
+use App\Imports\UserImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -64,6 +65,29 @@ class RoleController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('all.permission')->with($notification);
+    }
+
+    public function AllDelete(){
+        
+        $delete = DB::table('permissions')->delete();
+        //dd($delete);
+        if($delete){
+            $notification = array(
+                'message' => 'Table Permission Delete All Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.permission')->with($notification);
+
+        }else{
+            $notification = array(
+                'message' => 'Table Permission Error All Successfully',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('all.permission')->with($notification);
+        }
+
+
+        
     }
 
     public function AllRoles(){
@@ -156,12 +180,53 @@ class RoleController extends Controller
 
     public function Import(Request $request){
         
-        Excel::import(new PermissionImport, $request->file('import_file'));
-        $notification = array(
-            'message' => 'Roles Permission Add Successfully',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('all.permission')->with($notification);
+        $import = Excel::import(new PermissionImport, $request->file('import_file'));
+        if( $import){
+            $notification = array(
+                'message' => 'Roles Permission Import Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.permission')->with($notification);
+        }else{
+            $notification = array(
+                'message' => 'Roles Permission Add Error',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('all.permission')->with($notification);
+        }
+        
+    }
+
+    public function ImportAdmin(){
+        return view('backend.pages.admin.import_admin');
+    }
+
+    public function StoreImportAdmin(Request $request){
+        $import_file = $request->file('import_file');
+        $import = Excel::import(new UserImport, $import_file);
+        if($import_file == !NULL){
+            if( $import){
+                $notification = array(
+                    'message' => 'Admin Import Successfully',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('all.admin')->with($notification);
+            }else{
+                $notification = array(
+                    'message' => 'Admin Import Error',
+                    'alert-type' => 'error'
+                );
+                return redirect()->route('all.admin')->with($notification);
+            }
+        }else{
+            $notification = array(
+                'message' => 'Admin Import Kosong',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('all.admin')->with($notification);
+        }
+        
+        
     }
 
     

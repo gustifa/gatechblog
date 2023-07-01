@@ -8,6 +8,9 @@
                     <a href="{{route('import.permission')}}" class="btn btn-inverse-info mb-1 mb-md-0">Import</a>
                     &nbsp; &nbsp;
                     <a href="{{route('export')}}" class="btn btn-inverse-danger mb-1 mb-md-0">Export</a>
+
+                    &nbsp; &nbsp;
+                    <a href="{{route('delete.permission.all')}}" id="delete" class="btn btn-inverse-danger mb-1 mb-md-0">Delete All</a>
 					</ol>
 			</nav>
                 
