@@ -18,7 +18,7 @@
                     <a href="{{route('export.admin')}}" class="btn btn-inverse-danger mb-1 mb-md-0">Download Template</a>
 					</ol>
                     
-									<form id="myForm" method="post" action="{{route('store.import.admin')}}" enctype="multipart/form-data">
+									<form id="myForm" method="post" action="{{route('admin.store.import')}}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
 											<div class="col-sm-12">

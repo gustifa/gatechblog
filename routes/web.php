@@ -36,32 +36,27 @@ use App\Http\Controllers\Agent\AgentPropertyController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'role:user', 'verified'])->name('dashboard');
 Route::get('/', [UserController::class, 'Index' ])->name('frontend.index');
 
 Route::middleware('auth', 'role:user')->group(function () {
     Route::controller(UserController::class)->group(function(){
         //Route Frontend
-    
     Route::get('/user/profile', 'UserProfile')->name('user.profile.view');
     Route::post('/user/profile/store', 'UserProfileStore')->name('user.profile.store');
     Route::get('/user/password/edit', 'UserPasswordChange')->name('user.password.edit');
     Route::post('/user/update/password', [UserController::class,'UserUpdatePassword'])->name('user.update.password');
     Route::get('/user/logout', 'UserLogout')->name('user.logout');
-
-    
     //End Route Frontend
     });
 
     Route::controller(CompareController::class)->group(function(){
-        Route::get('/user/compare/details', 'UserCompareDetails')->name('user.compare.details');    
-
+        Route::get('/user/compare/details', 'UserCompareDetails')->name('user.compare.details');
     });
 
     Route::controller(WishlistController::class)->group(function(){
         Route::get('/user/wishlist/details', 'UserWishlistDetails')->name('user.wishlist.details'); 
-        Route::get('get-wishlist-property', 'GetWishlistProperty'); 
-    
+        Route::get('get-wishlist-property', 'GetWishlistProperty');
     });
 
 
@@ -146,8 +141,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::post('/store/type', 'StoreType')->name('store.type');
         Route::get('/edit/type/{id}', 'EditType')->name('edit.type');
         Route::post('/update/type', 'UpdateType')->name('update.type');
-        Route::get('/delete/type/{id}', 'DeleteType')->name('delete.type');
-        
+        Route::get('/delete/type/{id}', 'DeleteType')->name('delete.type'); 
     });
 
     Route::controller(PropertyTypeController::class)->group(function(){
@@ -156,8 +150,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::post('/store/amenities', 'StoreAmenities')->name('store.amenities');
         Route::get('/edit/amenities/{id}', 'EditAmenities')->name('edit.amenities');
         Route::post('/update/amenities', 'UpdateAmenities')->name('update.amenities');
-        Route::get('/delete/amenities/{id}', 'DeleteAmenities')->name('delete.amenities');
-        
+        Route::get('/delete/amenities/{id}', 'DeleteAmenities')->name('delete.amenities'); 
     });
 
     Route::controller(PropertyController::class)->group(function(){
@@ -178,14 +171,12 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::get('/detail/property/{id}', 'Detailproperty')->name('detail.property');
 
         Route::get('/admin/property/message', 'AdminPropertyMessage')->name('admin.property.message');
-        Route::get('/admin/message/details/{id}', 'AdminMessageDetails')->name('admin.message.details');
-        
+        Route::get('/admin/message/details/{id}', 'AdminMessageDetails')->name('admin.message.details');    
     });
 
     Route::controller(SettingController::class)->group(function(){
         Route::get('/site/setting', 'SiteSetting')->name('site.setting');
-        Route::post('/setting/update', 'SettingUpdate')->name('setting.update');
-        
+        Route::post('/setting/update', 'SettingUpdate')->name('setting.update');   
     });
     
     Route::controller(RoleController::class)->group(function(){
@@ -212,45 +203,34 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
         Route::get('/import/permission', 'ImportPermission')->name('import.permission');
         Route::get('/export', 'Export')->name('export');
-        Route::post('/import', 'Import')->name('import');
+        Route::post('/store/import', 'StoreImportPermission')->name('store.import.permission');
+        Route::get('/download/template/permission', 'DownloadTemplatePermission')->name('download.template.permission');
         Route::get('/import/admin', 'ImportAdmin')->name('import.admin');
         Route::get('/export/admin', 'ExportAdmin')->name('export.admin');
-        Route::post('/store/import/admin', 'StoreImportAdmin')->name('store.import.admin');
-
-        
-        
-    });
-   
+        Route::get('/download/template/admin', 'DownloadTemplateAdmin')->name('download.template.admin');
+        Route::post('/admin/import/store', 'AdminImportStore')->name('admin.store.import');   
+    }); 
 }); //End Group Middleware Admin
 
 Route::controller(IndexController::class)->group(function(){
     Route::get('/property/details/{id}/{slug}', 'PropertyDetails')->name('property.details');
-
-    Route::get('/agent/details/{id}', 'AgentDetails')->name('agent.details');
-    
+    Route::get('/agent/details/{id}', 'AgentDetails')->name('agent.details'); 
 });
-
-
 
 Route::controller(IndexController::class)->group(function(){
     Route::get('/property/details/{id}/{slug}', 'PropertyDetails')->name('property.details');
     Route::post('/property/message', 'PropertyMessage')->name('property.message');
-
-    Route::post('/store/schedule', 'StoreSchedule')->name('store.schedule');
-    
+    Route::post('/store/schedule', 'StoreSchedule')->name('store.schedule'); 
 });
 
 Route::controller(WishlistController::class)->group(function(){
     Route::post('/add-to-wishList/{property_id}', 'AddToWishlist');
     Route::get('/get-wishlist-property', 'GetWishlistProperty');
-    Route::get('/wishlist-remove/{id}', 'WishlistRemove');
-
-    
+    Route::get('/wishlist-remove/{id}', 'WishlistRemove');  
 });
 
 Route::controller(CompareController::class)->group(function(){
     Route::post('/add-to-compare/{property_id}', 'AddComparelist');
     Route::get('/get-compare-property', 'GetCompareProperty');
-    Route::get('/compare-remove/{id}', 'CompareRemove');
-    
+    Route::get('/compare-remove/{id}', 'CompareRemove'); 
 });

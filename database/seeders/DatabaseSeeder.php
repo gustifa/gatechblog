@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(UserTableSeeder::class);
+        $this->call(PropertyTableSeeder::class);
         $this->call(PropertyTypeTableSeeder::class);
         $this->call(AmenitiesTableSeeder::class);
         $this->call(SiteSettingTableSeeder::class);

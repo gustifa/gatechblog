@@ -19,6 +19,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): View
     {
         return view('auth.login');
+        
     }
 
     /**
@@ -31,46 +32,32 @@ class AuthenticatedSessionController extends Controller
         $data = User::find($id);
         $username = $data->name;
         $role = $data->role;
-        
-        // $role = $data->role;
-        // if($role === 'admin'){
-        //     $request->session()->regenerate();
-        //     $notification = array(
-        //         'message' => 'Admin'.$username.' Login Succesfully',
-        //         'alert-type' => 'success',
-        //     );
-        //     return redirect()->route('admin.login')->with(' $notification');  
-        // }else if($role === 'agent'){
-        //     $request->session()->regenerate();
-        //     $notification = array(
-        //         'message' => 'Agent'.$username.' Login Succesfully',
-        //         'alert-type' => 'success',
-        //     );
-        //     return redirect()->route('agent.login')->with(' $notification');  
-        // }else if($role === 'user'){
-        //     $request->session()->regenerate();
-        //     $notification = array(
-        //         'message' => 'User'.$username.' Login Succesfully',
-        //         'alert-type' => 'success',
-        //     );
-        //     return redirect()->route('login')->with(' $notification');  
-        // }
-    
-       
         $url = '';
-        if($request->user()->role === 'admin'){
+        $userRole = $request->user()->role;
+        if( $userRole == 'admin'){
             $url = 'admin/dashboard';
-        } elseif($request->user()->role === 'agent'){
+            $notification = array(
+                'message' => 'Admin '.$username.' Login Succesfully',
+                'alert-type' => 'success',
+            );
+            return redirect()->route('admin.dashboard')->with($notification);
+        } elseif($userRole == 'agent'){
             $url = 'agent/dashboard';
-        } elseif($request->user()->role === 'user'){
+            $notification = array(
+                'message' => 'Agent '.$username.' Login Succesfully',
+                'alert-type' => 'success',
+            );
+            return redirect()->route('agent.dashboard')->with($notification);
+        } elseif($userRole == 'user'){
             $url = '/dashboard';
+            $notification = array(
+                'message' => 'User '.$username.' Login Succesfully',
+                'alert-type' => 'success',
+            );
+            return redirect()->route('dashboard')->with($notification);
+            // return redirect()->intended($url)->with($notification);
         }
-        $notification = array(
-                    'message' => 'User '.$username.' Login Succesfully',
-                    'alert-type' => 'success',
-                );
-
-        return redirect()->intended($url)->with($notification);
+        
     }
 
     /**

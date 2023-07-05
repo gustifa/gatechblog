@@ -4,7 +4,8 @@
         <div class="page-content">
 			<nav class="page-breadcrumb">
 					<ol class="breadcrumb">
-                    <a href="{{route('add.permission')}}" class="btn btn-inverse-primary mb-1 mb-md-0" data-bs-toggle="modal" data-bs-target=".bd-example-modal-xl">Add Admin</a>
+                    <!-- <a href="{{route('add.permission')}}" class="btn btn-inverse-primary mb-1 mb-md-0" data-bs-toggle="modal" data-bs-target=".bd-example-modal-xl">Add Admin</a> -->
+                    <button class="btn btn-inverse-primary mb-1 mb-md-0" onClick="create()">Add Admin</button>
                     &nbsp; &nbsp;
                     <a href="{{route('import.admin')}}" class="btn btn-inverse-info mb-1 mb-md-0" data-bs-toggle="modal" data-bs-target="#exampleModal">Import</a>
                     &nbsp; &nbsp;
@@ -115,104 +116,17 @@
 $roles = Spatie\Permission\Models\Role::all();
 @endphp
 
-<div class="modal fade bd-example-modal-xl" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" id="adduser" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+        <h5 class="modal-title" id="labeladduser">Add Admin</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
       </div>
       <div class="modal-body">
-        <!-- Awal -->
-         <!-- middle wrapper start -->
-         <div class="col-md-12 stretch-card">
-						<div class="card">
-							<div class="card-body">
-								<h6 class="card-title">Add Roles</h6>
-									<form id="myForm" method="post" action="{{route('store.admin')}}" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="row">
-											<div class="col-sm-6">
-												<div class="mb-3">
-													<label class="form-label">Name</label>
-													<input type="text" name="name" class="form-control" >
-                                                   
-												</div>
-											</div><!-- Col -->
-                                            <div class="col-sm-6">
-												<div class="mb-3">
-													<label class="form-label">Email</label>
-													<input type="email" name="email" class="form-control" >
-                                                   
-												</div>
-											</div><!-- Col -->
-										</div><!-- Row -->
-                                        
-                                        <div class="row">
-											<div class="col-sm-6">
-												<div class="mb-3">
-													<label class="form-label">Phone</label>
-													<input type="text" name="phone" class="form-control" >
-                                                   
-												</div>
-											</div><!-- Col -->
-                                            <div class="col-sm-6">
-												<div class="mb-3">
-													<label class="form-label">Address</label>
-													<input type="text" name="address" class="form-control" >
-                                                   
-												</div>
-											</div><!-- Col -->
-										</div><!-- Row -->
-                                        
-                                        <div class="row">
-											<div class="col-sm-12">
-												<div class="mb-3">
-													<label class="form-label">Admin Password</label>
-													<input type="password" name="password" class="form-control" >
-                                                   
-												</div>
-											</div><!-- Col -->
-										</div><!-- Row -->
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="mb-3">
-                                                    <div class="form-group col-md-12">
-                                                        <label for="group_name">Select Roles</label>
-                                                        <select name="roles" id="group_name" class="form-control">
-                                                            <option selected="" disabled="">Select Roles</option>
-                                                            @foreach($roles as $item)
-                                                            <option value="{{$item->id}}">{{$item->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-										<div class="row">
-											<div class="col-sm-12">
-												<div class="mb-3">
-										<!-- <button type="submit" class="btn btn-primary submit">Save Roles</button> -->
-									
-									
-										</div>
-											    </div>
-												</div>
-									
-									
-									
-							</div>
-						</div>
-					</div>
-          <!-- middle wrapper end -->
-        <!-- Akhir -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
-      </div>
+        <div id="add"></div>
+        <!-- Form Add Admin -->
+      
     </div>
   </div>
 </div>
@@ -249,10 +163,34 @@ $roles = Spatie\Permission\Models\Role::all();
     });
     
 </script>
-<script>
-function create(){
-    $(#).modal('show');
-}
+<script type="text/javascript">
+    $(document).ready(function(){
+
+    });
+    function create(){
+        $.get("{{ url('/add/admin')}}", {}, function(data, status){
+            $("#labeladduser").html('Create User Admin');
+            $("#add").html(data);
+            $('#adduser').modal('show');
+        }); 
+    }
+
+    function store(){
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var address = $("#address").val();
+        var password = $("#password").val();
+        $.ajax({
+            type: "post",
+            url: "{{url('/store/admin')}}",
+            data:"name" + name,
+            success:function(data){
+                // $("#add").html('');
+                $(".btn-close").click();
+            }
+        });
+    }
 </script>
 	
 @endsection

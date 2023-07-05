@@ -20,8 +20,8 @@ class UserImport implements ToModel, WithHeadingRow
             "name" => $row['name'],
             "username" => $row['username'],
             "email" => $row['email'],
-            "status" => $row['status'],
-            "role" => $row['role'],
+            "status" => 'active',
+            "role" => 'admin',
             "password" => Hash::make('password'),
         ]);
     }

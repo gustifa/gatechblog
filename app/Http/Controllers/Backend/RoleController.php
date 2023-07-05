@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Exports\PermissionExport;
 use App\Imports\PermissionImport;
 use App\Imports\UserImport;
+use App\Exports\UserExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -178,12 +179,12 @@ class RoleController extends Controller
         return Excel::download(new PermissionExport, 'Template '.$user.'-user.xlsx');
     }
 
-    public function Import(Request $request){
-        
-        $import = Excel::import(new PermissionImport, $request->file('import_file'));
+    public function StoreImportPermission(Request $request){
+        $importFIle =$request->file('import_file');
+        $import = Excel::import(new PermissionImport, $importFIle);
         if( $import){
             $notification = array(
-                'message' => 'Roles Permission Import Successfully',
+                'message' => 'Permission Import Successfully',
                 'alert-type' => 'success'
             );
             return redirect()->route('all.permission')->with($notification);
@@ -197,36 +198,61 @@ class RoleController extends Controller
         
     }
 
+    public function DownloadTemplatePermission(){
+        // $path = public_path('/file/excel/import/import_template/template_excel_userrfid.xlsx');
+        // $name = basename($path);
+        // $headers = ["Content-Type:   application/vnd.ms-excel; charset=utf-8"];
+        // return response()->download($path, $name, $headers);
+        $path = public_path('/upload/template/excel/template_permission.xlsx');
+        // $name = basename($path);      
+        // $headers = ["Content-Type:   application/vnd.ms-excel; charset=utf-8"];
+        return response()->download($path);
+    }
+
     public function ImportAdmin(){
         return view('backend.pages.admin.import_admin');
     }
 
-    public function StoreImportAdmin(Request $request){
-        $import_file = $request->file('import_file');
-        $import = Excel::import(new UserImport, $import_file);
-        if($import_file == !NULL){
-            if( $import){
-                $notification = array(
-                    'message' => 'Admin Import Successfully',
-                    'alert-type' => 'success'
-                );
-                return redirect()->route('all.admin')->with($notification);
-            }else{
-                $notification = array(
-                    'message' => 'Admin Import Error',
-                    'alert-type' => 'error'
-                );
-                return redirect()->route('all.admin')->with($notification);
-            }
+    public function AdminImportStore(Request $request){
+        $importFIle =$request->file('import_file');
+        $import = Excel::import(new UserImport, $importFIle );
+        if( $import){
+            $notification = array(
+                'message' => 'User Admin Import Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.admin')->with($notification);
         }else{
             $notification = array(
-                'message' => 'Admin Import Kosong',
+                'message' => 'Import User Error',
                 'alert-type' => 'error'
             );
             return redirect()->route('all.admin')->with($notification);
         }
         
         
+    }
+
+    public function ExportAdmin(){
+        $user = Auth::user()->name;
+        $headings =
+                [
+                    'Nama',
+                    'Username',
+                    'Email',
+                ];
+        return Excel::download(new UserExport( $headings), 'Export user.xlsx');
+    }
+
+    public function DownloadTemplateAdmin(){
+        // $path = public_path('/file/excel/import/import_template/template_excel_userrfid.xlsx');
+        // $name = basename($path);
+        // $headers = ["Content-Type:   application/vnd.ms-excel; charset=utf-8"];
+        // return response()->download($path, $name, $headers);
+        $path = public_path('/upload/template/excel/template_admin.xlsx');
+        // $name = basename($path);      
+        // $headers = ["Content-Type:   application/vnd.ms-excel; charset=utf-8"];
+        return response()->download($path);
     }
 
     

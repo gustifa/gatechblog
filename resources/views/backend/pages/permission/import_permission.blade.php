@@ -15,10 +15,10 @@
                             <h6 class="card-title">Add Permission</h6>
                             <ol class="breadcrumb">
                             
-                    <a href="{{route('export')}}" class="btn btn-inverse-danger mb-1 mb-md-0">Download Template</a>
+                    <a href="{{route('download.template.permission')}}" class="btn btn-inverse-danger mb-1 mb-md-0">Download Template</a>
 					</ol>
                     
-									<form id="myForm" method="post" action="{{route('import')}}" enctype="multipart/form-data">
+									<form id="myForm" method="post" action="{{route('store.import.permission')}}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
 											<div class="col-sm-12">
